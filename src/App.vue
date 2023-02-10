@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Naval/>
-    <font-awesome-icon icon="fa-solid fa-user-secret" />
+    <font-awesome-icon icon="fa-solid fa-ship"/>
   </div>
 </template>
 
@@ -12,8 +12,8 @@ export default {
   name: 'App',
   components: {
     Naval,
-  }
-}
+  },
+};
 </script>
 
 <style>

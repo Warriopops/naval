@@ -1,6 +1,6 @@
 # naval
 
-## Project setup
+## Project setupeze
 ```
 npm install
 ```
