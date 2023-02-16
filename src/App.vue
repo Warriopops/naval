@@ -11,9 +11,9 @@ import Naval from './Bataille-Naval.vue'
 export default {
   name: 'App',
   components: {
-    Naval,
-  },
-};
+    Naval
+  }
+}
 </script>
 
 <style>

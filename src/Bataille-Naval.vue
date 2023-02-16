@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-multiple-template-root -->
 <template>
     <div class="container-header">
         <div class="header">
@@ -5,23 +6,53 @@
             <h2>Jouez en ligne contre vos amis !</h2>
             <h3>Placez vos bateaux, Coulez les bateaux ennemis !</h3>
         </div>
-            <formulaire class="inscrire" title="Inscrit toi !" buttonTitle="S'inscrire" @onSubmit="register" />
-            <formulaire class="connecter" title="Connecte toi !" buttonTitle="Se Connecter !" @onSubmit="login" />
-            <formulaire class="mdp" title="Mot de passe oublier" buttonTitle="Mot de passe oublier" @onSubmit="login" />
+            <formulaire title="Inscrit toi !" buttonTitle="S'inscrire" @submit="register" />
+            <formulaire class="connecter" title="Connecte toi !" buttonTitle="Se Connecter !" @submit="login" />
+            <formulaire class="mdp" title="Mot de passe oublier" buttonTitle="Mot de passe oublier" @submit="toto" />
+            <h3>Ton token est : {{ token }}</h3>
     </div>
     <home/>
 </template>
 
 <script>
-    import home from './HomeCompenent.vue';
-    import formulaire from './FormulaireComponent.vue';
+import home from './HomeCompenent.vue'
+import formulaire from './FormulaireComponent.vue'
+import axios from 'axios'
 
-    export default {
-        components: {
-            home,
-            formulaire,
-        }
+export default {
+  components: {
+    home,
+    formulaire
+  },
+  data () {
+    return {
+      token: ''
     }
+  },
+  methods: {
+    toto (pseudo, password) {
+      console.log('Toto est appelé')
+      console.log('consolelog3', pseudo, password)
+    },
+    register (pseudo, password) {
+      const register = axios.post('https://naval.laize.pro/user/signup', {
+        login: pseudo,
+        password
+      })
+      console.log(register)
+      console.log(this.todos)
+    },
+    login (pseudo, password) {
+      axios.post('https://naval.laize.pro/user/login', {
+        login: pseudo,
+        password
+      }).then((reponse) => {
+        console.log(reponse.data)
+        this.token = reponse.data
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -74,18 +105,15 @@
 
 </style>
 
-<!-- ETAPE 1 : mettre inscrit toi et connecte toi dans formulaire.vue
-Template qui dois fonctionner : 
-"
-<Formulaire img="/monimage.png" title="Inscrit toi !" buttonTitle="S'inscrire" @onSubmit="register" />
-<Formulaire img="/monimage.png" title="Connecte toi !" buttonTitle="Se connecter" @onSubmit="login" />
-voir props / voir components / pour onsubmit voir emit
+<!-- ETAPE 1-2: REMETTRE LE LINTER MEME SI JAI PAS ENVIE
+
+    ETAPE 1-3: réussir a mettre les png avec component : img=
 
 ETAPE 2 : créer une page, quand je clic sur le bouton va sur une autre page sans utiliser HREF mais en
 utilisant une librairie appeler vue-router / attention elle s'ajoute pas comme une autre mais il faut la configurer en modifiant
 le main.js ect et lire la doc
 
-ETAPE 3 : 
+ETAPE 3 :
     - cRÉER UNE PAGE /connect
     - Déplacer la partie connection/inscriptio sur la page /connect
     - Modifier la page d'acceuil pour avoir que l'accueil

@@ -1,7 +1,6 @@
 <template>
-<h1>blabla</h1>
+    <h1>b</h1>
 </template>
-
 <script>
 </script>
 

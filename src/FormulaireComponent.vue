@@ -4,66 +4,52 @@
         <div class="formulaire-container">
             <div class="identifiant-container">
                 <div class="identifiant">
-                    <input type="text" id="pseudo" placeholder="Pseudo" v-model="pseudo_register">
+                    <input type="text" id="pseudo" placeholder="Pseudo" v-model="pseudo">
                 </div>
                 <div class="identifiant">
-                    <input type="text" id="password" placeholder="Mot de passe" v-model="password_register">
+                    <input type="text" id="password" placeholder="Mot de passe" v-model="password">
                 </div>
             </div>
             <div class="formulaire-button">
-                <input type="button" :value="buttonTitle" class="favorite styled" @click="$emit('onSubmit')">
+                <input type="button" :value="buttonTitle" class="favorite styled" @click="submitForm">
             </div>
-                <img class="icone" :src="require('./assets/canon.png')"/>
+            <img class="icone" :src="require('./assets/canon.png')"/>
         </div>
     </div>
 </template>
-    
-<script>
-    import axios from 'axios';
 
-    export default {
-        emit:['onSubmit'],
-        props: {
-            title: String,
-            buttonTitle: String,
-        },
-        data() {
-            return {
-                id: 0,
-                pseudo_register: '',
-                password_register:'',
-                pseudo_login:'',
-                password_login:'',
-                todos:[],
-            };
-        },
-        mounted() {
-        },
-        methods:{
-            register(){
-                if(this.pseudo_register !== '' && this.password_register !== '') {
-                    this.todos.push({ key: this.id, pseudo: this.pseudo_register, password: this.password_register});
-                    const register = axios.post('https://naval.laize.pro/user/signup' , {login: this.pseudo_register
-                    , password: this.password_register});
-                    this.id += 1;
-                    this.pseudo_register = '';
-                    this.password_register = '';
-                    console.log(register);
-                }
-                console.log(this.todos);
-            },
-            login(){
-                axios.post('https://naval.laize.pro/user/login', {
-                    login: this.pseudo_login, 
-                    password: this.password_login
-                }).then(login => console.log(login.data))
-                this.pseudo_login = '';
-                this.password_login = '';
-            }
-        }
+<script>
+export default {
+  emit: ['onSubmit'],
+  components: {
+  },
+  props: {
+    title: String,
+    buttonTitle: String
+  },
+  data () {
+    return {
+      id: 0,
+      pseudo: '',
+      password: '',
+      todos: []
     }
+  },
+  mounted () {
+  },
+  methods: {
+    submitForm () {
+      if (this.pseudo !== '' && this.password !== '') {
+        console.log(this.password, this.pseudo)
+        this.$emit('submit', this.pseudo, this.password)
+        this.pseudo = ''
+        this.password = ''
+      }
+    }
+  }
+}
 </script>
-    
+
 <style scoped>
 @import url('https://fonts.cdnfonts.com/css/pirate-ship');
 .identifiant-container{
