@@ -6,11 +6,17 @@
             <h2>Jouez en ligne contre vos amis !</h2>
             <h3>Placez vos bateaux, Coulez les bateaux ennemis !</h3>
         </div>
-            <formulaire title="Inscrit toi !" buttonTitle="S'inscrire" @submit="register" />
-            <formulaire class="connecter" title="Connecte toi !" buttonTitle="Se Connecter !" @submit="login" />
-            <formulaire class="mdp" title="Mot de passe oublier" buttonTitle="Mot de passe oublier" @submit="toto" />
+            <formulaire v-bind:img="footer2"  title="Inscrit toi !" buttonTitle="S'inscrire" @submit="register"/>
+            <formulaire v-bind:img="footer2"  title="Connecte toi !" buttonTitle="Se Connecter !" @submit="login" />
+            <formulaire v-bind:img="footer2"  title="Mot de passe oublier" buttonTitle="Mot de passe oublier" @submit="toto" />
             <h3>Ton token est : {{ token }}</h3>
+
     </div>
+    <nav>
+      <router-link to="/">Acceuil</router-link>
+      <router-link to="/about">About</router-link>
+    </nav>
+    <router-view/>
     <home/>
 </template>
 
@@ -18,6 +24,7 @@
 import home from './HomeCompenent.vue'
 import formulaire from './FormulaireComponent.vue'
 import axios from 'axios'
+import footer2 from './assets/footer2.png'
 
 export default {
   components: {
@@ -26,7 +33,8 @@ export default {
   },
   data () {
     return {
-      token: ''
+      token: '',
+      footer2
     }
   },
   methods: {
@@ -93,8 +101,9 @@ export default {
         background-image:url(assets/carte2.jpg);
         background-size:cover;
     }
-    .inscrire{
-        background-image:url(./assets/body.png);
+    .footer{
+        width: 50px;
+        height: 50px;
     }
     .connecter{
         background-image:url(./assets/footer.png);
@@ -105,9 +114,11 @@ export default {
 
 </style>
 
-<!-- ETAPE 1-2: REMETTRE LE LINTER MEME SI JAI PAS ENVIE
-
-    ETAPE 1-3: réussir a mettre les png avec component : img=
+<!--
+COMPTE LINKEDIN : FAIS
+PROBLEME DU TOKEN : FAIS
+REMETTRE ESLINT : FAIS
+IMG : FAIS
 
 ETAPE 2 : créer une page, quand je clic sur le bouton va sur une autre page sans utiliser HREF mais en
 utilisant une librairie appeler vue-router / attention elle s'ajoute pas comme une autre mais il faut la configurer en modifiant

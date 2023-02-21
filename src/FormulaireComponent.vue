@@ -2,6 +2,8 @@
     <div class="formulaire">
         <h1>{{ title }}</h1>
         <div class="formulaire-container">
+            <h1>{{ title }}</h1>
+            <img class="image" :src="img" alt="pic">
             <div class="identifiant-container">
                 <div class="identifiant">
                     <input type="text" id="pseudo" placeholder="Pseudo" v-model="pseudo">
@@ -25,6 +27,7 @@ export default {
   },
   props: {
     title: String,
+    img: String,
     buttonTitle: String
   },
   data () {
@@ -53,30 +56,19 @@ export default {
 <style scoped>
 @import url('https://fonts.cdnfonts.com/css/pirate-ship');
 .identifiant-container{
-    text-align: start;
-    margin-left:20px;
-    display: flex;
-    flex-direction: column;
-    width:150px;
+    position:absolute;
+    margin-top:50px;
+    margin-left:30px;
 }
 
 h1{
-    padding-top:5px;
     color: rgb(255, 217, 0);
     font-family: 'Pirate Ship', sans-serif;
     font-size:15px;
     text-shadow: 2px 2px 16px rgba(0,0,0,1);
-    text-align:start;
-    margin-left:5px;
-}
-
-.formulaire{
-    width:550px;
-    height:125px;
-    background-size:cover;
+    position:absolute;
+    margin-left:30px;
     margin-top:20px;
-    margin-left:25px;
-    border-radius:5px 5px 5px 5px;
 }
 
 .formulaire:hover .icone{
@@ -111,20 +103,25 @@ h1{
 }
 .formulaire-container{
     display:flex;
-    flex-direction: row;
 }
 .formulaire-button{
-    margin-left:40px;
-    margin-top:10px;
+    position:absolute;
+    margin-left:270px;
+    margin-top:60px;
 }
 .identifiant{
-    margin-top:5px;
-    margin-bottom:5px;
+    margin-top:10px;
 }
 .icone{
     height:100px;
     width:100px;
-    margin-left:200px;
+    margin-top:30px;
     visibility:hidden;
+}
+.image{
+    margin-top:15px;
+    margin-left:25px;
+    height:125px;
+    width:550px;
 }
 </style>

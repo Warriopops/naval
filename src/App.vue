@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Naval from './Bataille-Naval.vue'
+import Naval from '@/Bataille-Naval.vue'
 
 export default {
   name: 'App',
