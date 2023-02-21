@@ -1,17 +1,12 @@
 <template>
-  <div id="app">
-    <Naval/>
-    <font-awesome-icon icon="fa-solid fa-ship"/>
-  </div>
+  <router-view/>
 </template>
 
 <script>
-import Naval from '@/Bataille-Naval.vue'
 
 export default {
   name: 'App',
   components: {
-    Naval
   }
 }
 </script>
