@@ -4,6 +4,7 @@ import Home from '@/HomePage.vue'
 import Register from '@/RegisterComponent.vue'
 import Connect from '@/ConnectComponent.vue'
 import NotFound from '@/NotFound.vue'
+import Dashboard from '@/DashboardComponent.vue'
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     name: 'NotFound',
     path: '/:pathMatch(.*)',
     component: NotFound
+  },
+  {
+    name: 'Dashboard',
+    path: '/dashboard',
+    component: Dashboard
   }
 ]
 
