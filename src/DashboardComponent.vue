@@ -7,20 +7,20 @@
       <h2>STATUS DU MATCH</h2>
       <h2>BOUTTON</h2>
     </div>
-        <div :key="index" v-for="(FiltreWaintingPlayer, index) in FiltreWaintingPlayer">
-          <div class="container-partie" v-if="index <= limite" >
-            <h3>{{ index }}</h3>
-            <h3>{{ FiltreWaintingPlayer.host.login }}</h3>
-            <h3>EN ATTENTE</h3>
-            <input type="button" class="join" value="REJOINDRE">
-          </div>
-        </div>
-        <div :key="index" v-for="(FiltrePlayingPlayer, index) in FiltrePlayingPlayer">
-          <div class="container-partie" v-if="20 + index <= limite" >
-            <h3>{{ 20 + index }}</h3>
-            <h3>{{ FiltrePlayingPlayer.host.login }} Vs {{ FiltrePlayingPlayer.guest.login }}</h3>
-            <h3>EN COURS</h3>
-            <h2>COMPLET</h2>
+        <div :key="index" v-for="(list, index) in listeOrdered">
+          <div v-if=" index < limite" >
+            <div v-if="list.guest == null" class="container-partie">
+              <h3>{{ index }}</h3>
+              <h3>{{ list.host.login }}</h3>
+              <h3>EN ATTENTE</h3>
+              <input type="button" class="join" value="REJOINDRE">
+            </div>
+            <div v-if="list.guest != null" class="container-partie">
+              <h3>{{ index }}</h3>
+              <h3>{{ list.host.login }} VS {{ list.guest.login }}</h3>
+              <h3>EN COURS</h3>
+              <h4>COMPLET</h4>
+            </div>
           </div>
         </div>
       <input type="button" class="favorite styled" @click="back" value="Retour">
@@ -38,29 +38,38 @@ export default {
   },
   data () {
     return {
-      limite: 9,
+      limite: 10,
       footer2,
       partie: null,
       FiltrePlayingPlayer: [],
-      FiltreWaintingPlayer: []
+      FiltreWaintingPlayer: [],
+      list: [],
+      play: 'PLAYING',
+      sortBy: 'board_status',
+      sortDirection: 'asc'
     }
   },
   mounted () {
     axios
       .get('https://naval.laize.pro/board')
       .then((reponse) => {
-        this.partie = reponse.data
-        this.partie.sort(function (b, a) {
-          return a.board_status.localeCompare(b.board_status)
-        })
-        this.FiltreWaintingPlayer = this.partie.filter(obj => obj.board_status !== 'PLAYING')
-        this.FiltrePlayingPlayer = this.partie.filter(obj => obj.board_status === 'PLAYING')
-        console.log('filtre joueurs en attente :')
-        console.log('filtre joueurs en jeu :')
-        console.log('partie')
+        this.list = reponse.data
       })
   },
+  computed: {
+    listeOrdered () {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      return this.list.sort((p2, p1) => {
+        let modifier = 1
+        if (this.sortDirection === 'desc') modifier = -1
+        if (p1[this.sortBy] < p2[this.sortBy]) return -1 * modifier
+        if (p1[this.sortBy] > p2[this.sortBy]) return 1 * modifier
+        return 0
+      })
+    }
+  },
   methods: {
+
     suivant () {
       this.limite = 10
     },
