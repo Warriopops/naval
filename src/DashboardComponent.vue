@@ -7,8 +7,8 @@
       <h2>STATUS DU MATCH</h2>
       <h2>BOUTTON</h2>
     </div>
-        <div :key="index" v-for="(list, index) in listeOrdered">
-          <div v-if=" index < limite" >
+        <div class="testo" :key="index" v-for="(list, index) in listeOrdered">
+          <div  v-if=" index < limite" >
             <div v-if="list.guest == null" class="container-partie">
               <h3>{{ index }}</h3>
               <h3>{{ list.host.login }}</h3>
@@ -122,7 +122,7 @@ export default {
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
     }
     .join{
-      width:100px;
+      width:95px;
       font-size:10px;
       height:70%;
       margin-top:5px;
