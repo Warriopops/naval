@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/valid-v-on -->
 <template>
     <div class="container-header">
+      <p>haha</p>
         <div class="header">
             <h1>Bataille Navale</h1>
             <h2>Jouez en ligne contre vos amis !</h2>
@@ -60,7 +61,6 @@ export default {
         width:550px;
         height:125px;
         background-size:cover;
-        margin-top:20px;
         border-radius:5px 5px 5px 5px;
         background-image:url(assets/header.jpg);
         width:600px;

@@ -5,6 +5,7 @@ import Register from '@/RegisterComponent.vue'
 import Connect from '@/ConnectComponent.vue'
 import NotFound from '@/NotFound.vue'
 import Dashboard from '@/DashboardComponent.vue'
+import Testhome from '@/TestHome.vue'
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     name: 'Dashboard',
     path: '/dashboard',
     component: Dashboard
+  },
+  {
+    name: 'TestHome',
+    path: '/testhome',
+    component: Testhome
   }
 ]
 

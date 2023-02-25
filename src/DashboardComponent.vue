@@ -1,5 +1,10 @@
 <template>
   <div class="container-header">
+    <audio controls autoplay="true" volume="0.2" loop="true">
+        <source src="./assets/musique.mp3" type="audio/mpeg">
+        <source src="./assets/musique.mp3" type="audio/wav">
+        <source src="./assets/musique.mp3" type="audio/ogg; codecs=vorbis">
+      </audio>
     <h1>LOBBY</h1>
     <div class="test">
       <h2>LOBBY</h2>
@@ -7,13 +12,20 @@
       <h2>STATUS DU MATCH</h2>
       <h2>BOUTTON</h2>
     </div>
+    <div class="loading" v-if="!isloaded">
+        <h2>CHARGEMENT DES LOBBYS</h2>
+      <div class="half-circle-spinner">
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+      </div>
+      </div>
         <div class="testo" :key="index" v-for="(list, index) in listeOrdered">
           <div  v-if=" index < limite" >
             <div v-if="list.guest == null" class="container-partie">
               <h3>{{ index }}</h3>
               <h3>{{ list.host.login }}</h3>
               <h3>EN ATTENTE</h3>
-              <input type="button" class="join" value="REJOINDRE">
+              <input type="button" class="join" @click="audio" value="REJOINDRE">
             </div>
             <div v-if="list.guest != null" class="container-partie">
               <h3>{{ index }}</h3>
@@ -24,8 +36,14 @@
           </div>
         </div>
       <input type="button" class="favorite styled" @click="back" value="Retour">
-      <input type="button" class="favorite styled" value="Match Précedent">
-      <input type="button" class="favorite styled" value="Match Suivant">
+      <input type="button" class="favorite styled" @click="audio()" value="Match Précedent">
+      <input type="button" class="favorite styled" @click="audio" value="Match Suivant">
+      <input type="button" class="favorite styled" @click="refresh" value="Raffraichir">
+      <audio preload="metadata" id="your-audio">
+        <source src="./assets/cloche.mp3" type="audio/mpeg">
+        <source src="./assets/cloche.mp3" type="audio/wav">
+        <source src="./assets/cloche.mp3" type="audio/ogg; codecs=vorbis">
+      </audio>
   </div>
 </template>
 
@@ -40,13 +58,10 @@ export default {
     return {
       limite: 10,
       footer2,
-      partie: null,
-      FiltrePlayingPlayer: [],
-      FiltreWaintingPlayer: [],
       list: [],
-      play: 'PLAYING',
       sortBy: 'board_status',
-      sortDirection: 'asc'
+      sortDirection: 'asc',
+      isloaded: false
     }
   },
   mounted () {
@@ -54,6 +69,7 @@ export default {
       .get('https://naval.laize.pro/board')
       .then((reponse) => {
         this.list = reponse.data
+        this.isloaded = true
       })
   },
   computed: {
@@ -69,12 +85,19 @@ export default {
     }
   },
   methods: {
-
-    suivant () {
-      this.limite = 10
+    refresh () {
+      const yourAudio = document.getElementById('your-audio')
+      yourAudio.play()
+      location.reload()
     },
     back () {
+      const yourAudio = document.getElementById('your-audio')
+      yourAudio.play()
       this.$router.push('/')
+    },
+    audio () {
+      const yourAudio = document.getElementById('your-audio')
+      yourAudio.play()
     }
   }
 }
@@ -109,7 +132,7 @@ export default {
     .styled, .join {
     margin-top:5px;
     border: 0;
-    width:200px;
+    width:150px;
     line-height: 2.5;
     padding: 0 20px;
     font-size: 1rem;
@@ -171,6 +194,59 @@ export default {
     h4{
       font-size:14px;
       color:red;
+    }
+    .half-circle-spinner, .half-circle-spinner * {
+      box-sizing: border-box;
+    }
+
+    .half-circle-spinner {
+      width: 60px;
+      height: 60px;
+      border-radius: 100%;
+      position: relative;
+    }
+
+    .half-circle-spinner .circle {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      border: calc(60px / 10) solid transparent;
+
+    }
+
+    .half-circle-spinner .circle.circle-1 {
+      border-top-color: black;
+      animation: half-circle-spinner-animation 1s infinite;
+    }
+
+    .half-circle-spinner .circle.circle-2 {
+      border-bottom-color: black;
+      animation: half-circle-spinner-animation 1s infinite alternate;
+    }
+
+    @keyframes half-circle-spinner-animation {
+      0% {
+        transform: rotate(0deg);
+
+      }
+      100%{
+        transform: rotate(360deg);
+      }
+    }
+    .loading{
+      display: flex;
+      flex-direction: row;
+      align-items:center;
+      margin-top:150px;
+      margin-bottom:210px;
+    }
+    .loading h2{
+      margin-left:70px;
+      margin-right:30px;
+      font-size:30px;
+      color:black
     }
 
 </style>
