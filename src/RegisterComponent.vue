@@ -6,9 +6,13 @@
             <h3>Placez vos bateaux, Coulez les bateaux ennemis !</h3>
         </div>
         <div class="container">
-          <formulaire v-bind:img="footer2"  title="Inscrit toi !" buttonTitle="S'inscrire" @submit="register"/>
-          <font-awesome-icon icon="fa-solid fa-left" />
-          <input type="button" class="favorite styled" @click="back" value="Retour">
+          <div class="register">
+            <formulaire v-bind:img="footer2"  title="Inscrit toi !" buttonTitle="S'inscrire" @submit="register"/>
+            <font-awesome-icon icon="fa-solid fa-left" />
+          </div>
+          <div class="back">
+            <input type="button" class="favorite styled" @click="back" value="Retour">
+          </div>
         </div>
     </div>
 </template>
@@ -47,9 +51,6 @@ export default {
 <style scoped>
     @import url('https://fonts.cdnfonts.com/css/pirate-ship');
 
-    .container{
-      margin-top:100px;
-    }
     .styled {
     margin-top:190px;
     border: 0;
@@ -72,5 +73,8 @@ export default {
 
   .styled:active {
     box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+  }
+  .container-header{
+    margin-top:60px;
   }
 </style>

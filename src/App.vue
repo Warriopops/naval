@@ -1,5 +1,5 @@
 <template>
-  <router-view/>
+  <router-view></router-view>
 </template>
 
 <script>
@@ -15,5 +15,8 @@ export default {
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
+}
+body{
+  margin:0px;
 }
 </style>

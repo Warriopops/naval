@@ -1,27 +1,59 @@
-<!-- eslint-disable vue/valid-v-on -->
 <template>
-    <div class="container-header">
-      <p>haha</p>
-        <div class="header">
-            <h1>Bataille Navale</h1>
-            <h2>Jouez en ligne contre vos amis !</h2>
-            <h3>Placez vos bateaux, Coulez les bateaux ennemis !</h3>
+    <div>
+        <audio autoplay volume="0.2" loop="true">
+        <source src="./assets/musique.mp3" type="audio/mpeg">
+        <source src="./assets/musique.mp3" type="audio/wav">
+        <source src="./assets/musique.mp3" type="audio/ogg; codecs=vorbis">
+      </audio>
+        <div class="header-container">
+            <div class="logo">
+                <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
+                    <div class="logo-name">
+                        <h1>LA BATAILLE NAVALE</h1>
+                    </div>
+            </div>
+            <h1>Plongez dans l'action,<br> defiez vos amis ou d autres joueurs pour la domination navale !</h1>
+            <input type="button" class="favorite styled" @click="register()"  value="REJOIGNEZ-NOUS !"/>
         </div>
-            <HomeComponent @click="register()"  v-bind:img="footer" buttonTitle="S'inscrire"/>
-            <HomeComponent @click="connect()" v-bind:img="footer2" buttonTitle="Se Connecter !" />
-            <HomeComponent @click="lost()" v-bind:img="body" buttonTitle="Mot de passe oublier" />
-    </div>
+        <div class="connect">
+            <formulaire title="Connecte toi !" buttonTitle="Se connecter !" @submit="login"/>
+        </div>
+        <div class="navbar">
+            <h1 @click="acceuil">Acceuil</h1>
+            <h1>Boutique ( a venir )</h1>
+            <h1>Classement ( a venir )</h1>
+            <h1>Regles du jeu ( a venir )</h1>
+        </div>
+        <div class="news-title">
+            <h1>Dernieres News</h1>
+            </div>
+            <div class="news-container">
+                <div class="news1">
+                    <h2>A VENIR . . .</h2>
+                </div>
+                <div class="news2">
+                    <h2>A VENIR . . .</h2>
+                </div>
+                <div class="news3">
+                    <h2>A VENIR . . .</h2>
+                </div>
+            </div>
+            <div class="navbar-footer">
+                <h1>@Warriopops</h1>
+            </div>
+        </div>
 </template>
 
 <script>
-import HomeComponent from './HomeComponent.vue'
 import footer2 from './assets/footer2.png'
 import footer from './assets/footer.png'
 import body from './assets/body.png'
+import formulaire from './FormulaireComponent.vue'
+import axios from 'axios'
 
 export default {
   components: {
-    HomeComponent
+    formulaire
   },
   data () {
     return {
@@ -32,6 +64,21 @@ export default {
     }
   },
   methods: {
+    acceuil () {
+      this.$router.push('/home')
+    },
+    login (pseudo, password) {
+      axios.post('https://naval.laize.pro/user/login', {
+        login: pseudo,
+        password
+      }).then((reponse) => {
+        console.log(reponse.data)
+        this.token = reponse.data
+        alert('Connection Réussie !')
+        console.log(this.token)
+        this.$router.push('/dashboard')
+      })
+    },
     connect () {
       console.log('home')
       this.$router.push('/connect')
@@ -47,50 +94,184 @@ export default {
 }
 </script>
 
-<style>
-    @import url('https://fonts.cdnfonts.com/css/pirate-ship');
-
-    h1, h2, h3{
-        padding-top:5px;
-        color: black(255, 217, 0);
-        font-family: 'Pirate Ship', sans-serif;
-        font-size:15px;
-        text-shadow: 2px 2px 16px rgba(0,0,0,1);
-    }
-    .header{
-        width:550px;
-        height:125px;
-        background-size:cover;
-        border-radius:5px 5px 5px 5px;
-        background-image:url(assets/header.jpg);
-        width:600px;
-        height:125px;
-        margin-left:0px;
-    }
-    .container-header{
-        width: 600px;
-        height:605px;
-        margin: 0 auto;
-        padding-top:2px;
-        padding-bottom:20px;
-        padding-left:10px;
-        padding-right:10px;
-        background-image:url(assets/carte2.jpg);
-        background-size:cover;
-    }
-    .footer{
-        width: 50px;
-        height: 50px;
-    }
-    .connecter{
-        background-image:url(./assets/footer.png);
-    }
-    .mdp{
-        background-image:url(./assets/footer2.png);
-    }
-    html{
-    background-image: url(assets/home.jpg);
-    background-size: cover;
+<style scoped>
+.header{
+    margin-top:0px;
 }
+.header-container{
+    width:100%;
+    height:90px;
+    background-color:rgb(0, 0, 0, 0.5);
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    color:white;
+    align-items:center
+}
+p{
+    display:inline-block
+}
+img{
+    width:80px;
+    height:80px;
+}
+.logo{
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    margin-left:10px;
+}
+.logo-name{
+    margin-left:20px;
+}
+.button{
+    margin-top:50px;
+}
+.styled, .join {
+    display:inline-block;
+    max-width:250px;
+    margin-top:5px;
+    border: 0;
+    width:200px;
+    height:60px;
+    margin-right:10px;
+    line-height: 1.2;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10px;
+    background-color: rgb(169, 0, 0);
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    }
+    .join{
+      width:95px;
+      font-size:10px;
+      height:70%;
+      margin-top:5px;
+    }
 
+    .styled:hover , .join:hover{
+    background-color: rgba(255, 0, 0, 1);
+    }
+
+    .styled:active , .join:active{
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+    }
+    .connect{
+        background-color:rgba(0, 0, 0, 0.6);
+        width:500px;
+        height:150px;
+        margin-left:550px;
+        margin-top:50px;
+    }
+    .navbar{
+        margin-top:50px;
+        display:flex;
+        flex-direction:row;
+        background-color:rgba(255, 255, 255, 0.6);
+        height:60px;
+        align-items:center;
+        justify-content: space-around;
+    }
+    .news-title h1{
+        color:white;
+        font-size:30px;
+    }
+    .news1 h2, .news2 h2, .news3 h2{
+        position:relative;
+        color:white;
+        margin-left:10px;
+    }
+    .news-container{
+        text-align:start;
+        display:flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .news1, .news2, .news3{
+        background-image:url("@/assets/footer2.png");
+        width:440px;
+        height:180px;
+        background-size: cover;
+    }
+    .news2{
+        background-image:url("@/assets/footer.png");
+    }
+    .news3{
+        background-image:url("@/assets/body.png");
+    }
+    .navbar-footer{
+        margin-top:90px;
+        display:flex;
+        flex-direction:row;
+        background-color:#0c3a65;
+        color:white;
+        height:60px;
+        align-items:center;
+        justify-content: space-around;
+    }
+
+    @media screen and (max-width: 1400px){
+        .news1, .news2, .news3{
+            width:400px;
+        }
+    @media screen and (max-width:1200px){
+        .news1, .news2, .news3{
+            width:300px;
+        }
+        .connect{
+            margin-left:30%;
+            margin-right:30%
+        }
+        }
+    @media screen and (max-width:950px){
+        .news1, .news2, .news3{
+            width:150px;
+        }
+    }
+    @media screen and (max-width:800px){
+        .connect{
+            margin-left:15%;
+            margin-right:15%
+        }
+        .header-container h1{
+            visibility: hidden;
+        }
+    }
+    @media screen and (max-width:650px){
+        .navbar {
+            display: grid;
+            grid-template-rows: 33% 33% 33%;
+            grid-template-columns: 200px 200px;
+        }
+        .navbar h1{
+            margin-top:30px;
+        }
+        .connect{
+            margin-left:5%;
+            margin-right:5%
+        }
+    }
+    @media screen and (max-width:550px){
+        .connect{
+            margin-left:0%;
+            margin-right:0%
+        }
+        .navbar, .navbar-footer, .header-container{
+            width:550px;
+        }
+    }
+    @media screen and (max-width:500px){
+        .navbar, .header-container, .news-container, .news-title{
+            width:500px;
+            margin-bottom:55px;
+        }
+        .navbar-footer{
+            width:500px;
+        }
+    }
+    };
 </style>

@@ -3,7 +3,6 @@
         <h1>{{ title }}</h1>
         <div class="formulaire-container">
             <h1>{{ title }}</h1>
-            <img class="image" :src="img" alt="pic">
             <div class="identifiant-container">
                 <div class="identifiant">
                     <input type="text" id="pseudo" placeholder="Pseudo" v-model="pseudo">
@@ -15,7 +14,6 @@
             <div class="formulaire-button">
                 <input type="button" :value="buttonTitle" class="favorite styled" @click="submitForm">
             </div>
-            <img class="icone" :src="require('./assets/canon.png')"/>
         </div>
     </div>
 </template>

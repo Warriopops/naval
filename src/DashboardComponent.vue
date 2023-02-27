@@ -1,14 +1,20 @@
 <template>
   <div class="container-header">
-    <audio controls autoplay="true" volume="0.2" loop="true">
+    <audio autoplay volume="0.2" loop="true">
         <source src="./assets/musique.mp3" type="audio/mpeg">
         <source src="./assets/musique.mp3" type="audio/wav">
         <source src="./assets/musique.mp3" type="audio/ogg; codecs=vorbis">
       </audio>
+      <div class="heeader">
+      <div class="logo">
+                <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
+            </div>
     <h1>LOBBY</h1>
+    </div>
     <div class="test">
       <h2>LOBBY</h2>
-      <h2>JOUEURS</h2>
+      <h2>HOTE</h2>
+      <h2>JOUEUR</h2>
       <h2>STATUS DU MATCH</h2>
       <h2>BOUTTON</h2>
     </div>
@@ -24,12 +30,14 @@
             <div v-if="list.guest == null" class="container-partie">
               <h3>{{ index }}</h3>
               <h3>{{ list.host.login }}</h3>
+              <h3>INCONNU</h3>
               <h3>EN ATTENTE</h3>
               <input type="button" class="join" @click="audio" value="REJOINDRE">
             </div>
             <div v-if="list.guest != null" class="container-partie">
               <h3>{{ index }}</h3>
-              <h3>{{ list.host.login }} VS {{ list.guest.login }}</h3>
+              <h3>{{ list.host.login }}</h3>
+              <h3>{{ list.guest.login }}</h3>
               <h3>EN COURS</h3>
               <h4>COMPLET</h4>
             </div>
@@ -56,7 +64,7 @@ export default {
   },
   data () {
     return {
-      limite: 10,
+      limite: 30,
       footer2,
       list: [],
       sortBy: 'board_status',
@@ -113,12 +121,12 @@ export default {
         height:20px;
     }
     .container-header{
-        width: 600px;
-        height:605px;
+      margin:5%;
+        width: 90%;
+        height:90%;
         -webkit-box-shadow: 0px 0px 25px 10px rgba(0,0,255,0.77);
         -moz-box-shadow: 0px 0px 25px 10px rgba(0,0,255,0.77);
         box-shadow: 0px 0px 25px 10px rgba(0,0,255,0.77);
-        margin: 0 auto;
         padding-top:2px;
         padding-bottom:20px;
         padding-left:10px;
@@ -160,7 +168,7 @@ export default {
     }
     .container-partie{
         display: grid;
-        grid-template-columns: repeat(4, 100px);
+        grid-template-columns: repeat(5, 100px);
         justify-content: space-between;
         vertical-align: center;
         margin-right:30px;
@@ -173,7 +181,7 @@ export default {
     }
     .test{
       display: grid;
-      grid-template-columns: repeat(4,100px);
+      grid-template-columns: repeat(5,100px);
       justify-content:space-between;
       margin-right:30px;
       margin-left:30px;
@@ -243,10 +251,21 @@ export default {
       margin-bottom:210px;
     }
     .loading h2{
-      margin-left:70px;
+      margin-left:500px;
       margin-right:30px;
       font-size:30px;
       color:black
     }
-
+    .logo img{
+      width:80px;
+      height:80px;
+      margin-right:10px;
+    }
+    .heeader{
+      display:flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items:center;
+      margin-right:10px;
+    }
 </style>

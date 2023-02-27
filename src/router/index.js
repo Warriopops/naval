@@ -5,7 +5,7 @@ import Register from '@/RegisterComponent.vue'
 import Connect from '@/ConnectComponent.vue'
 import NotFound from '@/NotFound.vue'
 import Dashboard from '@/DashboardComponent.vue'
-import Testhome from '@/TestHome.vue'
+import Testhome from '@/HomeSave.vue'
 
 const routes = [
   {

@@ -1,11 +1,9 @@
 <template>
     <div class="formulaire">
         <div class="formulaire-container">
-            <img class="image" :src="img" alt="pic">
             <div class="formulaire-button">
                 <input type="button" :value="buttonTitle" class="favorite styled">
             </div>
-            <img class="icone" :src="require('./assets/canon.png')"/>
         </div>
     </div>
 </template>
@@ -16,7 +14,6 @@ export default {
   },
   props: {
     title: String,
-    img: String,
     buttonTitle: String
   }
 }
@@ -53,7 +50,7 @@ export default {
 .formulaire-button{
     position:absolute;
     margin-left:150px;
-    margin-top:50px;
+    margin-top:30px;
 }
 .identifiant{
     margin-top:10px;
@@ -65,7 +62,7 @@ export default {
     margin-top:30px;
     visibility:hidden;
 }
-.image{
+.formulaire-container{
     margin-top:15px;
     margin-left:25px;
     height:125px;
