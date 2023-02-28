@@ -60,7 +60,8 @@ export default {
       token: '',
       footer2,
       footer,
-      body
+      body,
+      idendifiants: { login: 'test', password: 'test', token: '' }
     }
   },
   methods: {
@@ -72,11 +73,13 @@ export default {
         login: pseudo,
         password
       }).then((reponse) => {
-        console.log(reponse.data)
         this.token = reponse.data
+        this.$store.commit('LoginSuccess', this.token)
         alert('Connection Réussie !')
-        console.log(this.token)
         this.$router.push('/dashboard')
+      }).catch((erreur) => {
+        console.log(erreur)
+        this.$store.commit('LoginFail')
       })
     },
     connect () {
@@ -192,16 +195,10 @@ img{
         justify-content: space-around;
     }
     .news1, .news2, .news3{
-        background-image:url("@/assets/footer2.png");
         width:440px;
         height:180px;
         background-size: cover;
-    }
-    .news2{
-        background-image:url("@/assets/footer.png");
-    }
-    .news3{
-        background-image:url("@/assets/body.png");
+        background-color:black;
     }
     .navbar-footer{
         margin-top:90px;

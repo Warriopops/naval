@@ -33,7 +33,8 @@ export default {
       id: 0,
       pseudo: '',
       password: '',
-      todos: []
+      todos: [],
+      identifiants: { login: '', password: '' }
     }
   },
   mounted () {
@@ -41,7 +42,9 @@ export default {
   methods: {
     submitForm () {
       if (this.pseudo !== '' && this.password !== '') {
-        console.log(this.password, this.pseudo)
+        this.identifiants.login = this.pseudo
+        this.identifiants.password = this.password
+        this.$store.commit('Login', this.identifiants)
         this.$emit('submit', this.pseudo, this.password)
         this.pseudo = ''
         this.password = ''

@@ -6,6 +6,7 @@ import Connect from '@/ConnectComponent.vue'
 import NotFound from '@/NotFound.vue'
 import Dashboard from '@/DashboardComponent.vue'
 import Testhome from '@/HomeSave.vue'
+import Laboratoire from '@/LaboratoireThomas.vue'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     name: 'TestHome',
     path: '/testhome',
     component: Testhome
+  },
+  {
+    name: 'Laboratoire',
+    path: '/laboratoire',
+    component: Laboratoire
   }
 ]
 
