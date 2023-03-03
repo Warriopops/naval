@@ -1,6 +1,6 @@
 <template>
   <div class="container-header">
-    <audio autoplay volume="0.2" loop="true">
+    <audio volume="0.2" loop="true">
         <source src="./assets/musique.mp3" type="audio/mpeg">
         <source src="./assets/musique.mp3" type="audio/wav">
         <source src="./assets/musique.mp3" type="audio/ogg; codecs=vorbis">
@@ -32,7 +32,7 @@
               <h3>{{ list.host.login }}</h3>
               <h3>INCONNU</h3>
               <h3>EN ATTENTE</h3>
-              <input type="button" class="join" @click="audio" value="REJOINDRE">
+              <input type="button" class="join" @click="join(index)" value="REJOINDRE">
             </div>
             <div v-if="list.guest != null" class="container-partie">
               <h3>{{ index }}</h3>
@@ -69,7 +69,8 @@ export default {
       list: [],
       sortBy: 'board_status',
       sortDirection: 'asc',
-      isloaded: false
+      isloaded: false,
+      index: 0
     }
   },
   mounted () {
@@ -78,6 +79,7 @@ export default {
       .then((reponse) => {
         this.list = reponse.data
         this.isloaded = true
+        console.log(reponse)
       })
   },
   computed: {
@@ -106,11 +108,18 @@ export default {
     audio () {
       const yourAudio = document.getElementById('your-audio')
       yourAudio.play()
+    },
+    join (index) {
+      const token = this.$store.state.identifiants.acces_token.access_token
+      axios.get('https://naval.laize.pro/board/' + this.list[index].id + '/join', {
+        headers: { Authorization: `bearer ${token}` }
+      }).then((response) => {
+        console.log(response, 'A REJOINT')
+      }).catch((error) => { console.log(error, 'COMPLET') })
     }
   }
 }
 </script>
-
 <style scoped>
     @import url('https://fonts.cdnfonts.com/css/pirate-ship');
     h1{

@@ -3,6 +3,7 @@
         <h1>{{ title }}</h1>
         <div class="formulaire-container">
             <h1>{{ title }}</h1>
+            <h2 @click="close">{{ msg }}</h2>
             <div class="identifiant-container">
                 <div class="identifiant">
                     <input type="text" id="pseudo" placeholder="Pseudo" v-model="pseudo">
@@ -26,6 +27,7 @@ export default {
   props: {
     title: String,
     img: String,
+    msg: String,
     buttonTitle: String
   },
   data () {
@@ -42,13 +44,13 @@ export default {
   methods: {
     submitForm () {
       if (this.pseudo !== '' && this.password !== '') {
-        this.identifiants.login = this.pseudo
-        this.identifiants.password = this.password
-        this.$store.commit('Login', this.identifiants)
         this.$emit('submit', this.pseudo, this.password)
         this.pseudo = ''
         this.password = ''
       }
+    },
+    close () {
+      this.$store.state.toggle = false
     }
   }
 }
@@ -124,5 +126,10 @@ h1{
     margin-left:25px;
     height:125px;
     width:550px;
+}
+h2{
+    margin-top:2px;
+    margin-left:480px;
+    color:red;
 }
 </style>

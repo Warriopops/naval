@@ -1,6 +1,6 @@
 <template>
     <div>
-        <audio autoplay volume="0.2" loop="true">
+        <audio volume="0.2" loop="true">
         <source src="./assets/musique.mp3" type="audio/mpeg">
         <source src="./assets/musique.mp3" type="audio/wav">
         <source src="./assets/musique.mp3" type="audio/ogg; codecs=vorbis">
@@ -13,15 +13,20 @@
                     </div>
             </div>
             <h1>Plongez dans l'action,<br> defiez vos amis ou d autres joueurs pour la domination navale !</h1>
-            <input type="button" class="favorite styled" @click="register()"  value="REJOIGNEZ-NOUS !"/>
+            <div>
+            <h2 v-if="this.$store.state.identifiants.connected === true">Pseudo : {{ pseudo }}</h2>
+            <input v-if="this.$store.state.identifiants.connected === false" type="button" class="favorite styled" @click="formConnect()" value="SE CONNECTER !"/>
+            <input v-if="this.$store.state.identifiants.connected === false" type="button" class="favorite styled" @click="register()"  value="REJOIGNEZ-NOUS !"/>
+            </div>
         </div>
-        <div class="connect">
-            <formulaire title="Connecte toi !" buttonTitle="Se connecter !" @submit="login"/>
-        </div>
+            <formulaire v-if="this.$store.state.toggle && this.$store.state.identifiants.connected === false" class="connect"
+            msg="X" title="Connecte toi !" buttonTitle="Se connecter !" @submit="login"/>
         <div class="navbar">
             <h1 @click="acceuil">Acceuil</h1>
-            <h1>Boutique ( a venir )</h1>
+            <h1 v-if="this.$store.state.identifiants.connected === true" @click="lobby">Lobby</h1>
+            <h1 v-if="this.$store.state.identifiants.connected === true" @click="lobby">Mes Parties</h1>
             <h1>Classement ( a venir )</h1>
+            <h1>Boutique ( a venir )</h1>
             <h1>Regles du jeu ( a venir )</h1>
         </div>
         <div class="news-title">
@@ -49,7 +54,6 @@ import footer2 from './assets/footer2.png'
 import footer from './assets/footer.png'
 import body from './assets/body.png'
 import formulaire from './FormulaireComponent.vue'
-import axios from 'axios'
 
 export default {
   components: {
@@ -59,28 +63,29 @@ export default {
     return {
       token: '',
       footer2,
+      toggle: false,
       footer,
       body,
       idendifiants: { login: 'test', password: 'test', token: '' }
     }
   },
+  computed: {
+    pseudo () {
+      return this.$store.state.identifiants.login
+    }
+  },
   methods: {
+    lobby () {
+      this.$router.push('/dashboard')
+    },
     acceuil () {
       this.$router.push('/home')
     },
     login (pseudo, password) {
-      axios.post('https://naval.laize.pro/user/login', {
-        login: pseudo,
-        password
-      }).then((reponse) => {
-        this.token = reponse.data
-        this.$store.commit('LoginSuccess', this.token)
-        alert('Connection Réussie !')
-        this.$router.push('/dashboard')
-      }).catch((erreur) => {
-        console.log(erreur)
-        this.$store.commit('LoginFail')
-      })
+      this.idendifiants.login = pseudo
+      this.idendifiants.password = password
+      this.$store.dispatch('Login', this.idendifiants)
+      console.log(this.$store.state.identifiants)
     },
     connect () {
       console.log('home')
@@ -92,6 +97,9 @@ export default {
     },
     lost () {
       this.$router.push('/lost')
+    },
+    formConnect () {
+      this.$store.state.toggle = !this.$store.state.toggle
     }
   }
 }
@@ -106,7 +114,7 @@ export default {
     height:90px;
     background-color:rgb(0, 0, 0, 0.5);
     display:flex;
-    flex-direction:row;
+    flex-direction: row;
     justify-content: space-between;
     color:white;
     align-items:center
@@ -167,11 +175,14 @@ img{
         background-color:rgba(0, 0, 0, 0.6);
         width:500px;
         height:150px;
-        margin-left:550px;
-        margin-top:50px;
+        margin-left:66.5%;
+        margin-top:0px;
+        z-index:1;
+        position:fixed;
     }
     .navbar{
-        margin-top:50px;
+        margin-top:100px;
+        margin-bottom:100px;
         display:flex;
         flex-direction:row;
         background-color:rgba(255, 255, 255, 0.6);
@@ -201,7 +212,7 @@ img{
         background-color:black;
     }
     .navbar-footer{
-        margin-top:90px;
+        margin-top:150px;
         display:flex;
         flex-direction:row;
         background-color:#0c3a65;
@@ -209,6 +220,12 @@ img{
         height:60px;
         align-items:center;
         justify-content: space-around;
+    }
+    .header-container h2{
+        margin-right:30px;
+    }
+    .navbar h1:hover{
+        color:rgb(68, 68, 68);
     }
 
     @media screen and (max-width: 1400px){
