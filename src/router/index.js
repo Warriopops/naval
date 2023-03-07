@@ -7,6 +7,8 @@ import NotFound from '@/NotFound.vue'
 import Dashboard from '@/DashboardComponent.vue'
 import Testhome from '@/HomeSave.vue'
 import Laboratoire from '@/LaboratoireThomas.vue'
+import Createparty from '@/CreateParty.vue'
+import Board from '@/BoardComponent.vue'
 
 const routes = [
   {
@@ -43,6 +45,16 @@ const routes = [
     name: 'Laboratoire',
     path: '/laboratoire',
     component: Laboratoire
+  },
+  {
+    name: 'CreateParty',
+    path: '/createparty',
+    component: Createparty
+  },
+  {
+    name: 'board',
+    path: '/board/:id',
+    component: Board
   }
 ]
 

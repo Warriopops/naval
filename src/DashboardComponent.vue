@@ -9,7 +9,9 @@
       <div class="logo">
                 <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
             </div>
+    <input @click="resetparty" type="button" class="favorite styled" value="Reset Party">
     <h1>LOBBY</h1>
+    <input @click="Createparty" type="button" class="favorite styled" value="Créer une partie">
     </div>
     <div class="test">
       <h2>LOBBY</h2>
@@ -32,7 +34,9 @@
               <h3>{{ list.host.login }}</h3>
               <h3>INCONNU</h3>
               <h3>EN ATTENTE</h3>
-              <input type="button" class="join" @click="join(index)" value="REJOINDRE">
+              <router-link :to="{ name: 'board', params: { id: list.id } }">
+                <input type="button" class="join" @click="join(index)" value="REJOINDRE">
+              </router-link>
             </div>
             <div v-if="list.guest != null" class="container-partie">
               <h3>{{ index }}</h3>
@@ -60,17 +64,17 @@ import footer2 from './assets/footer2.png'
 import axios from 'axios'
 
 export default {
+
   components: {
   },
   data () {
     return {
-      limite: 30,
+      limite: 50,
       footer2,
       list: [],
       sortBy: 'board_status',
       sortDirection: 'asc',
-      isloaded: false,
-      index: 0
+      isloaded: false
     }
   },
   mounted () {
@@ -110,12 +114,14 @@ export default {
       yourAudio.play()
     },
     join (index) {
-      const token = this.$store.state.identifiants.acces_token.access_token
-      axios.get('https://naval.laize.pro/board/' + this.list[index].id + '/join', {
-        headers: { Authorization: `bearer ${token}` }
-      }).then((response) => {
-        console.log(response, 'A REJOINT')
-      }).catch((error) => { console.log(error, 'COMPLET') })
+      const list = this.list[index]
+      this.$store.commit('join', list)
+    },
+    Createparty () {
+      this.$router.push('/createparty')
+    },
+    resetparty () {
+      axios.get('https://naval.laize.pro/reset')
     }
   }
 }

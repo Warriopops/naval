@@ -24,7 +24,7 @@
         <div class="navbar">
             <h1 @click="acceuil">Acceuil</h1>
             <h1 v-if="this.$store.state.identifiants.connected === true" @click="lobby">Lobby</h1>
-            <h1 v-if="this.$store.state.identifiants.connected === true" @click="lobby">Mes Parties</h1>
+            <h1 v-if="this.$store.state.identifiants.connected === true" @click="mygames">Mes Parties</h1>
             <h1>Classement ( a venir )</h1>
             <h1>Boutique ( a venir )</h1>
             <h1>Regles du jeu ( a venir )</h1>
@@ -46,7 +46,10 @@
             <div class="navbar-footer">
                 <h1>@Warriopops</h1>
             </div>
-        </div>
+            <div class="testo" :key="index" v-for="(list, index) in this.list">
+                <h2>{{ list }}</h2>
+            </div>
+    </div>
 </template>
 
 <script>
@@ -66,6 +69,7 @@ export default {
       toggle: false,
       footer,
       body,
+      list: [],
       idendifiants: { login: 'test', password: 'test', token: '' }
     }
   },
@@ -100,6 +104,11 @@ export default {
     },
     formConnect () {
       this.$store.state.toggle = !this.$store.state.toggle
+    },
+    mygames () {
+      console.log('reussi')
+      this.$router.push('/board/0')
+      this.$store.commit('Mygames')
     }
   }
 }
