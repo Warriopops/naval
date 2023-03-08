@@ -1,9 +1,9 @@
 <template>
     <div>
         <audio volume="0.2" loop="true">
-        <source src="./assets/musique.mp3" type="audio/mpeg">
-        <source src="./assets/musique.mp3" type="audio/wav">
-        <source src="./assets/musique.mp3" type="audio/ogg; codecs=vorbis">
+        <source src="@/assets/musique.mp3" type="audio/mpeg">
+        <source src="@/assets/musique.mp3" type="audio/wav">
+        <source src="@/assets/musique.mp3" type="audio/ogg; codecs=vorbis">
       </audio>
         <div class="header-container">
             <div class="logo">
@@ -21,14 +21,7 @@
         </div>
             <formulaire v-if="this.$store.state.toggle && this.$store.state.identifiants.connected === false" class="connect"
             msg="X" title="Connecte toi !" buttonTitle="Se connecter !" @submit="login"/>
-        <div class="navbar">
-            <h1 @click="acceuil">Acceuil</h1>
-            <h1 v-if="this.$store.state.identifiants.connected === true" @click="lobby">Lobby</h1>
-            <h1 v-if="this.$store.state.identifiants.connected === true" @click="mygames">Mes Parties</h1>
-            <h1>Classement ( a venir )</h1>
-            <h1>Boutique ( a venir )</h1>
-            <h1>Regles du jeu ( a venir )</h1>
-        </div>
+            <navbar/>
         <div class="news-title">
             <h1>Dernieres News</h1>
             </div>
@@ -53,14 +46,16 @@
 </template>
 
 <script>
-import footer2 from './assets/footer2.png'
-import footer from './assets/footer.png'
-import body from './assets/body.png'
-import formulaire from './FormulaireComponent.vue'
+import footer2 from '@/assets/footer2.png'
+import footer from '@/assets/footer.png'
+import body from '@/assets/body.png'
+import formulaire from '@/components/FormulaireComponent.vue'
+import navbar from '@/components/NavbarComponent.vue'
 
 export default {
   components: {
-    formulaire
+    formulaire,
+    navbar
   },
   data () {
     return {
@@ -79,17 +74,15 @@ export default {
     }
   },
   methods: {
-    lobby () {
-      this.$router.push('/dashboard')
-    },
-    acceuil () {
-      this.$router.push('/home')
-    },
     login (pseudo, password) {
       this.idendifiants.login = pseudo
       this.idendifiants.password = password
       this.$store.dispatch('Login', this.idendifiants)
       console.log(this.$store.state.identifiants)
+      const blabla = this.$store.state.identifiants
+      localStorage.setItem('Identifiants', JSON.stringify(blabla))
+      const test = JSON.parse(localStorage.getItem('identifiants'))
+      console.log(test)
     },
     connect () {
       console.log('home')
@@ -104,11 +97,6 @@ export default {
     },
     formConnect () {
       this.$store.state.toggle = !this.$store.state.toggle
-    },
-    mygames () {
-      console.log('reussi')
-      this.$router.push('/board/0')
-      this.$store.commit('Mygames')
     }
   }
 }
@@ -232,9 +220,6 @@ img{
     }
     .header-container h2{
         margin-right:30px;
-    }
-    .navbar h1:hover{
-        color:rgb(68, 68, 68);
     }
 
     @media screen and (max-width: 1400px){

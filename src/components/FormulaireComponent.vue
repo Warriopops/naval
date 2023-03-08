@@ -40,6 +40,7 @@ export default {
     }
   },
   mounted () {
+    this.$store.state.idendifiants = JSON.parse(localStorage.getItem('identifiants'))
   },
   methods: {
     submitForm () {

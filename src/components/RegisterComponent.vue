@@ -20,7 +20,7 @@
 <script>
 import formulaire from './FormulaireComponent.vue'
 import axios from 'axios'
-import footer2 from './assets/footer2.png'
+import footer2 from '@/assets/footer2.png'
 
 export default {
   components: {

@@ -1,50 +1,10 @@
 <!-- eslint-disable vue/valid-v-on -->
 <template>
-    <div class="container-header">
-      <p>haha</p>
-        <div class="header">
-            <h1>Bataille Navale</h1>
-            <h2>Jouez en ligne contre vos amis !</h2>
-            <h3>Placez vos bateaux, Coulez les bateaux ennemis !</h3>
-        </div>
-            <HomeComponent @click="register()"  v-bind:img="footer" buttonTitle="S'inscrire"/>
-            <HomeComponent @click="connect()" v-bind:img="footer2" buttonTitle="Se Connecter !" />
-            <HomeComponent @click="lost()" v-bind:img="body" buttonTitle="Mot de passe oublier" />
+    <div>
     </div>
 </template>
 
 <script>
-import HomeComponent from './HomeComponent.vue'
-import footer2 from './assets/footer2.png'
-import footer from './assets/footer.png'
-import body from './assets/body.png'
-
-export default {
-  components: {
-    HomeComponent
-  },
-  data () {
-    return {
-      token: '',
-      footer2,
-      footer,
-      body
-    }
-  },
-  methods: {
-    connect () {
-      console.log('home')
-      this.$router.push('/connect')
-    },
-    register () {
-      console.log('home')
-      this.$router.push('/register')
-    },
-    lost () {
-      this.$router.push('/lost')
-    }
-  }
-}
 </script>
 
 <style>

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import footer2 from './assets/footer2.png'
+import footer2 from '@/assets/footer2.png'
 
 export default {
   components: {
@@ -42,7 +42,7 @@ export default {
         padding-bottom:20px;
         padding-left:10px;
         padding-right:10px;
-        background-image:url(assets/carte2.jpg);
+        background-image:url(@/assets/carte2.jpg);
         background-size:cover;
     }
     .styled {

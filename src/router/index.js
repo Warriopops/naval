@@ -1,14 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/HomePage.vue'
-import Register from '@/RegisterComponent.vue'
-import Connect from '@/ConnectComponent.vue'
-import NotFound from '@/NotFound.vue'
-import Dashboard from '@/DashboardComponent.vue'
-import Testhome from '@/HomeSave.vue'
-import Laboratoire from '@/LaboratoireThomas.vue'
-import Createparty from '@/CreateParty.vue'
-import Board from '@/BoardComponent.vue'
+import Home from '@/pages/HomePage.vue'
+import Register from '@/components/RegisterComponent.vue'
+import Connect from '@/components/ConnectComponent.vue'
+import NotFound from '@/pages/NotFoundPage.vue'
+import Lobby from '@/pages/LobbyPage.vue'
+import Testhome from '@/HeaderPage.vue'
+import Createparty from '@/pages/GameCreatePage.vue'
+import Board from '@/pages/GameInfoPage.vue'
+import Debug from '@/pages/DeBug.vue'
+import Plateaux from '@/components/PlateauxComponent.vue'
 
 const routes = [
   {
@@ -32,19 +33,14 @@ const routes = [
     component: NotFound
   },
   {
-    name: 'Dashboard',
+    name: 'Lobby',
     path: '/dashboard',
-    component: Dashboard
+    component: Lobby
   },
   {
     name: 'TestHome',
     path: '/testhome',
     component: Testhome
-  },
-  {
-    name: 'Laboratoire',
-    path: '/laboratoire',
-    component: Laboratoire
   },
   {
     name: 'CreateParty',
@@ -55,6 +51,16 @@ const routes = [
     name: 'board',
     path: '/board/:id',
     component: Board
+  },
+  {
+    name: 'debug',
+    path: '/debug',
+    component: Debug
+  },
+  {
+    name: 'plateaux',
+    path: '/plateaux',
+    component: Plateaux
   }
 ]
 

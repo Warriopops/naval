@@ -1,6 +1,7 @@
 <template>
     <div class="container-header">
         <h1>Creation de partie</h1>
+        <navbar/>
         <select v-model="NumberBoard" name="board" id="board-select">
             <option value=1>1</option>
             <option value=2>2</option>
@@ -23,6 +24,7 @@
 
 <script>
 
+import navbar from '@/components/NavbarComponent.vue'
 export default {
   data: function () {
     return {
@@ -30,12 +32,15 @@ export default {
       Board: []
     }
   },
+  components: {
+    navbar
+  },
   methods: {
     CreateBoard () {
       this.Board.push(this.NumberBoard)
     },
     CreateParty () {
-      this.$store.commit('Createparty')
+      this.$store.dispatch('Createparty')
     }
   }
 }
@@ -53,7 +58,7 @@ export default {
         padding-bottom:20px;
         padding-left:10px;
         padding-right:10px;
-        background-image:url(assets/carte2.jpg);
+        background-image:url(@/assets/carte2.jpg);
         background-size:cover;
     }
 </style>

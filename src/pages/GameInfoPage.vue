@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 @click="test">INFOS DE LA PARTIE : </h1>
-        {{ $store.state.identifiantsparty }}
+        {{ $store.state.identifiantsParty }}
     </div>
 </template>
 
@@ -11,12 +11,9 @@ export default {
 
   data: function () {
     return {
-      lol: []
     }
   },
   methods: {
-    test () {
-    }
   }
 }
 </script>

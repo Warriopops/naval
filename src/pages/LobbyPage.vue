@@ -1,18 +1,18 @@
 <template>
   <div class="container-header">
     <audio volume="0.2" loop="true">
-        <source src="./assets/musique.mp3" type="audio/mpeg">
-        <source src="./assets/musique.mp3" type="audio/wav">
-        <source src="./assets/musique.mp3" type="audio/ogg; codecs=vorbis">
+        <source src="@/assets/musique.mp3" type="audio/mpeg">
+        <source src="@/assets/musique.mp3" type="audio/wav">
+        <source src="@/assets/musique.mp3" type="audio/ogg; codecs=vorbis">
       </audio>
       <div class="heeader">
       <div class="logo">
-                <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
+            <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
             </div>
-    <input @click="resetparty" type="button" class="favorite styled" value="Reset Party">
     <h1>LOBBY</h1>
     <input @click="Createparty" type="button" class="favorite styled" value="Créer une partie">
     </div>
+    <navbar/>
     <div class="test">
       <h2>LOBBY</h2>
       <h2>HOTE</h2>
@@ -52,24 +52,26 @@
       <input type="button" class="favorite styled" @click="audio" value="Match Suivant">
       <input type="button" class="favorite styled" @click="refresh" value="Raffraichir">
       <audio preload="metadata" id="your-audio">
-        <source src="./assets/cloche.mp3" type="audio/mpeg">
-        <source src="./assets/cloche.mp3" type="audio/wav">
-        <source src="./assets/cloche.mp3" type="audio/ogg; codecs=vorbis">
+        <source src="@/assets/cloche.mp3" type="audio/mpeg">
+        <source src="@/assets/cloche.mp3" type="audio/wav">
+        <source src="@/assets/cloche.mp3" type="audio/ogg; codecs=vorbis">
       </audio>
   </div>
 </template>
 
 <script>
-import footer2 from './assets/footer2.png'
+import footer2 from '@/assets/footer2.png'
 import axios from 'axios'
+import navbar from '@/components/NavbarComponent.vue'
 
 export default {
 
   components: {
+    navbar
   },
   data () {
     return {
-      limite: 50,
+      limite: 10,
       footer2,
       list: [],
       sortBy: 'board_status',
@@ -115,13 +117,10 @@ export default {
     },
     join (index) {
       const list = this.list[index]
-      this.$store.commit('join', list)
+      this.$store.dispatch('join', list)
     },
     Createparty () {
       this.$router.push('/createparty')
-    },
-    resetparty () {
-      axios.get('https://naval.laize.pro/reset')
     }
   }
 }
@@ -146,7 +145,7 @@ export default {
         padding-bottom:20px;
         padding-left:10px;
         padding-right:10px;
-        background-image:url(assets/carte2.jpg);
+        background-image:url(@/assets/carte2.jpg);
         background-size:cover;
     }
     .container-partie h2{
