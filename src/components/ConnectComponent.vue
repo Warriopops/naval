@@ -39,7 +39,6 @@ export default {
       }).then((reponse) => {
         console.log(reponse.data)
         this.token = reponse.data
-        alert('Connection Réussie !')
         this.$router.push('/dashboard')
       })
     }

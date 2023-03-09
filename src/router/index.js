@@ -10,6 +10,7 @@ import Createparty from '@/pages/GameCreatePage.vue'
 import Board from '@/pages/GameInfoPage.vue'
 import Debug from '@/pages/DeBug.vue'
 import Plateaux from '@/components/PlateauxComponent.vue'
+import Mygames from '@/pages/MyGamesPage.vue'
 
 const routes = [
   {
@@ -61,6 +62,11 @@ const routes = [
     name: 'plateaux',
     path: '/plateaux',
     component: Plateaux
+  },
+  {
+    name: 'mygames',
+    path: '/Mygames',
+    component: Mygames
   }
 ]
 

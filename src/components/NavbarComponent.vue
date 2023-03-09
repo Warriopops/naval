@@ -41,9 +41,7 @@ export default {
       this.$router.push('/')
     },
     mygames () {
-      console.log('reussi')
-      this.$router.push('/board/0')
-      this.$store.dispatch('Mygames')
+      this.$router.push('/mygames')
     }
   }
 }

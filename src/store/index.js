@@ -8,7 +8,7 @@ export default createStore({
     identifiants: { login: '', password: '*******', connected: false, acces_token: '' },
     count: 0,
     identifiantsParty: '',
-    mesPartiesEnCours: []
+    myGames: []
   },
   getters: {
   },
@@ -54,6 +54,7 @@ export default createStore({
         headers: { Authorization: `bearer ${token}` }
       }).then((response) => {
         console.log('mes games :', response)
+        state.myGames = response
       }).catch((error) => { console.log(error) })
     },
     Createparty ({ state }) {
@@ -68,6 +69,7 @@ export default createStore({
       const token = state.identifiants.acces_token.access_token
       console.log('store', list)
       state.identifiantsParty = list
+      console.log(list)
       axios.get('https://naval.laize.pro/board/' + list.id + '/join', {
         headers: { Authorization: `bearer ${token}` }
       }).then((response) => {
@@ -100,11 +102,11 @@ export default createStore({
 // FAIRE DE LORDRE, COMPONENTS, NOM, NETTOYAGE
 // METTRE DES CURSEURS AU CLIC
 // RANGER STORE ( REQUETTE DANS ACTIONS)
+// CREER UN COMPOSANT NAVBAR ET LE METTRE DANS LES AUTRES PAGES
+// AVOIR UN COMPOSANT PLATEAUX DE JEUX 10 Hauteur x 8 Largeur ( sympa mais vraiment simple GRID X DIV )
+// SAUVEGARDER URL DANS LES INFOS DE LA PARTIE POUR POUVOIR "SAUVEGARDER" LES INFORMATIONS
+// QUAND JE SUIS SUR UNE PARTIE AVEC LES INFOS POUVOIR RECHARGER LA PAGE
 
 // A FAIRE
 
-// CREER UN COMPOSANT NAVBAR ET LE METTRE DANS LES AUTRES PAGES
 // SAUVEGARDER LE STORE DANS LE LOCALSTORAGE et récuperer
-// QUAND JE SUIS SUR UNE PARTIE AVEC LES INFOS POUVOIR RECHARGER LA PAGE
-// SAUVEGARDER URL DANS LES INFOS DE LA PARTIE POUR POUVOIR "SAUVEGARDER" LES INFOMARTIONS
-// AVOIR UN COMPOSANT PLATEAUX DE JEUX 10 Hauteur x 8 Largeur ( sympa mais vraiment simple GRID X DIV )
