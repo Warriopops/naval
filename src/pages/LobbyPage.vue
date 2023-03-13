@@ -20,7 +20,7 @@
       <h2>STATUS DU MATCH</h2>
       <h2>BOUTTON</h2>
     </div>
-    <div class="loading" v-if="!isloaded">
+    <div class="loading" v-if="this.$store.state.partyLoaded == false">
         <h2>CHARGEMENT DES LOBBYS</h2>
       <div class="half-circle-spinner">
       <div class="circle circle-1"></div>
@@ -61,7 +61,6 @@
 
 <script>
 import footer2 from '@/assets/footer2.png'
-import axios from 'axios'
 import navbar from '@/components/NavbarComponent.vue'
 
 export default {
@@ -71,31 +70,25 @@ export default {
   },
   data () {
     return {
-      limite: 10,
+      limite: 30,
       footer2,
       list: [],
       sortBy: 'board_status',
-      sortDirection: 'asc',
-      isloaded: false
+      sortDirection: 'asc'
     }
   },
   mounted () {
-    axios
-      .get('https://naval.laize.pro/board')
-      .then((reponse) => {
-        this.list = reponse.data
-        this.isloaded = true
-        console.log(reponse)
-      })
+    this.$store.dispatch('loadingparty')
   },
   computed: {
     listeOrdered () {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      return this.list.sort((p2, p1) => {
+      return this.$store.state.gamesLobby.sort((p2, p1) => {
         let modifier = 1
         if (this.sortDirection === 'desc') modifier = -1
         if (p1[this.sortBy] < p2[this.sortBy]) return -1 * modifier
         if (p1[this.sortBy] > p2[this.sortBy]) return 1 * modifier
+        this.list = this.$store.state.gamesLobby
         return 0
       })
     }

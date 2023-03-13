@@ -61,7 +61,6 @@ export default {
     return {
       token: '',
       footer2,
-      toggle: false,
       footer,
       body,
       list: [],
@@ -78,18 +77,11 @@ export default {
       this.idendifiants.login = pseudo
       this.idendifiants.password = password
       this.$store.dispatch('Login', this.idendifiants)
-      console.log(this.$store.state.identifiants)
-      const blabla = this.$store.state.identifiants
-      localStorage.setItem('Identifiants', JSON.stringify(blabla))
-      const test = JSON.parse(localStorage.getItem('identifiants'))
-      console.log(test)
     },
     connect () {
-      console.log('home')
       this.$router.push('/connect')
     },
     register () {
-      console.log('home')
       this.$router.push('/register')
     },
     lost () {

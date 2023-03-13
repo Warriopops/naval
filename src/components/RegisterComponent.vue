@@ -19,7 +19,6 @@
 
 <script>
 import formulaire from './FormulaireComponent.vue'
-import axios from 'axios'
 import footer2 from '@/assets/footer2.png'
 
 export default {
@@ -32,17 +31,13 @@ export default {
     }
   },
   methods: {
-    back () {
+    register (pseudo, password) {
+      const identifiantsRegister = { pseudo, password }
+      this.$store.dispatch('register', identifiantsRegister)
       this.$router.push('/')
     },
-    register (pseudo, password) {
-      const register = axios.post('https://naval.laize.pro/user/signup', {
-        login: pseudo,
-        password
-      })
+    back () {
       this.$router.push('/')
-      console.log(register)
-      alert('Inscription Réussie !')
     }
   }
 }

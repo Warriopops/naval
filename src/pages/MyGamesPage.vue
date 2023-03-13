@@ -24,7 +24,7 @@ export default {
   methods: {
     mygames () {
       this.$store.dispatch('Mygames')
-      this.list = this.$store.state.myGames.data
+      this.list = this.$store.state.myGames
     }
   },
   mounted () {

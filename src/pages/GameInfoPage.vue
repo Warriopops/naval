@@ -14,7 +14,8 @@ export default {
 
   data: function () {
     return {
-      url: '',
+      url: null,
+      boardId: null,
       gameInfo: '',
       index: 0
     }
@@ -22,12 +23,10 @@ export default {
   methods: {
     urlFunction () {
       this.url = window.location.href
-      this.url = this.url.substring(this.url.lastIndexOf('board') + 6)
-      console.log(this.url)
-      console.log(this.gameInfo[this.index].id)
-      while (this.gameInfo[this.index].id !== this.url) {
+      this.boardId = this.url.substring(this.url.lastIndexOf('board') + 6)
+      console.log(this.boardId)
+      while (this.gameInfo[this.index].id !== this.boardId) {
         this.index = this.index + 1
-        console.log(this.index)
       }
       this.gameInfo = this.gameInfo[this.index]
     },

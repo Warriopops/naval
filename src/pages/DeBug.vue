@@ -16,10 +16,7 @@ export default {
       axios.get('https://naval.laize.pro/reset')
     },
     save () {
-      const blabla = this.$store.state.identifiants
-      localStorage.setItem('Identifiants', blabla)
-      const cat = localStorage.getItem('Identifiants')
-      console.log(cat)
+      this.$store.dispatch('save')
     }
   }
 }

@@ -21,11 +21,8 @@ export default {
     return {
       token: '',
       footer2,
-      toggle: false,
       footer,
-      body,
-      list: [],
-      idendifiants: { login: 'test', password: 'test', token: '' }
+      body
     }
   },
   computed: {
@@ -52,7 +49,7 @@ export default {
         color:rgb(68, 68, 68);
     }
     .navbar h1{
-        cursor:default
+        cursor:pointer
     }
     .navbar{
         margin-top:100px;

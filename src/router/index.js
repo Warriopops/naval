@@ -2,7 +2,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/HomePage.vue'
 import Register from '@/components/RegisterComponent.vue'
-import Connect from '@/components/ConnectComponent.vue'
 import NotFound from '@/pages/NotFoundPage.vue'
 import Lobby from '@/pages/LobbyPage.vue'
 import Testhome from '@/HeaderPage.vue'
@@ -22,11 +21,6 @@ const routes = [
     name: 'Register',
     path: '/register',
     component: Register
-  },
-  {
-    name: 'Connect',
-    path: '/connect',
-    component: Connect
   },
   {
     name: 'NotFound',

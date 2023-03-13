@@ -4,6 +4,9 @@
 
 <script>
 export default {
+  mounted () {
+    this.$store.dispatch('load')
+  },
   name: 'App',
   components: {
   }

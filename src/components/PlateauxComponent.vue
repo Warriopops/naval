@@ -1,23 +1,34 @@
 <template>
     <div>
+        <section class="test"></section>
         <div class="case">
-            <div>A</div><div>B</div><div>C</div><div>D</div><div>E</div><div>F</div><div>G</div><div>H</div>
-            <div>1</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div>2</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div>3</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div>4</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div>5</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div>6</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div>7</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div>8</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div>9</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div>10</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div id="div1">test</div>
         </div>
     </div>
 </template>
 
 <script>
-
+export default {
+  emit: ['onSubmit'],
+  components: {
+  },
+  props: {
+  },
+  data () {
+    return {
+      case: 18,
+      compteur: 0
+    }
+  },
+  mounted () {
+    const els = document.createElement('div')
+    const contenu = document.createTextNode('salut')
+    els.appendChild(contenu)
+    document.body.insertBefore(els, document.body.firstChild)
+  },
+  methods: {
+  }
+}
 </script>
 
 <style scoped>

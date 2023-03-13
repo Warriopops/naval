@@ -34,13 +34,10 @@ export default {
     return {
       id: 0,
       pseudo: '',
-      password: '',
-      todos: [],
-      identifiants: { login: '', password: '' }
+      password: ''
     }
   },
   mounted () {
-    this.$store.state.idendifiants = JSON.parse(localStorage.getItem('identifiants'))
   },
   methods: {
     submitForm () {

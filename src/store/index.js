@@ -5,33 +5,44 @@ export default createStore({
   state: {
     toggle: false,
     join: false,
-    identifiants: { login: '', password: '*******', connected: false, acces_token: '' },
-    count: 0,
+    identifiants: { login: '', password: '*******', connected: false, access_token: '' },
     identifiantsParty: '',
-    myGames: []
+    myGames: [],
+    partyLoaded: false,
+    gamesLobby: []
   },
   getters: {
   },
   mutations: {
-    save () {
-      const test = JSON.parse(localStorage.getItem('identifiants'))
-      console.log(test)
-    },
+    // loadToState(state, storeSaved) {
+
     LoginSuccess (state, token) {
       state.identifiants.connected = true
-      state.identifiants.acces_token = token
-      localStorage.setItem('token', token)
-      console.log('réussie :', state.identifiants)
+      state.identifiants.access_token = token
     },
     LoginFail (state) {
       state.identifiants.connected = false
-      console.log('fail :', state.identifiants)
     },
     Login (state, identifiants) {
       state.identifiants.login = identifiants.login
+    },
+    Load_data (state, load) {
+      Object.assign(state, load)
+    },
+    partyloaded (state, reponse) {
+      state.gamesLobby = reponse
+      state.partyLoaded = true
     }
   },
   actions: {
+    save (state) {
+      const save = JSON.stringify(state)
+      localStorage.setItem('identifiants', save)
+    },
+    load ({ commit }) {
+      const data = JSON.parse(localStorage.getItem('identifiants'))
+      commit('Load_data', data)
+    },
     Login (context, identifiants) {
       context.commit('Login', identifiants)
       axios.post('https://naval.laize.pro/user/login', {
@@ -41,24 +52,22 @@ export default createStore({
         console.log(reponse)
         const token = reponse.data
         context.commit('LoginSuccess', token)
-        context.dispatch('')
-        alert('Connection Réussie !')
+        context.dispatch('save')
       }).catch((erreur) => {
         console.log(erreur)
         context.commit('LoginFail', identifiants)
       })
     },
     Mygames ({ state }) {
-      const token = state.identifiants.acces_token.access_token
+      const token = state.identifiants.access_token.access_token
       axios.get('https://naval.laize.pro/board/mygames', {
         headers: { Authorization: `bearer ${token}` }
       }).then((response) => {
-        console.log('mes games :', response)
-        state.myGames = response
+        state.myGames = response.data
       }).catch((error) => { console.log(error) })
     },
     Createparty ({ state }) {
-      const token = state.identifiants.acces_token.access_token
+      const token = state.identifiants.access_token.access_token
       axios.get('https://naval.laize.pro/board', {
         headers: { Authorization: `bearer ${token}` }
       }).then((reponse) => {
@@ -66,7 +75,7 @@ export default createStore({
       })
     },
     join ({ state }, list) {
-      const token = state.identifiants.acces_token.access_token
+      const token = state.identifiants.access_token.access_token
       console.log('store', list)
       state.identifiantsParty = list
       console.log(list)
@@ -78,6 +87,24 @@ export default createStore({
       }).catch((error) => {
         console.log(error, 'COMPLET')
       })
+    },
+    register (state, identifiants) {
+      console.log(state)
+      axios.post('https://naval.laize.pro/user/signup', {
+        login: identifiants.pseudo,
+        password: identifiants.password
+      }).then((response) => {
+        console.log('inscription réussis', response)
+      }).catch((error) => {
+        console.log('erreur d inscription', error)
+      })
+    },
+    loadingparty (context) {
+      axios
+        .get('https://naval.laize.pro/board')
+        .then((reponse) => {
+          context.commit('partyloaded', reponse.data)
+        })
     }
     // getParties() {
     //   blabla.then(() => this.commit('parties'));
@@ -98,15 +125,14 @@ export default createStore({
 })
 
 // FAIS
-
-// FAIRE DE LORDRE, COMPONENTS, NOM, NETTOYAGE
-// METTRE DES CURSEURS AU CLIC
-// RANGER STORE ( REQUETTE DANS ACTIONS)
-// CREER UN COMPOSANT NAVBAR ET LE METTRE DANS LES AUTRES PAGES
-// AVOIR UN COMPOSANT PLATEAUX DE JEUX 10 Hauteur x 8 Largeur ( sympa mais vraiment simple GRID X DIV )
-// SAUVEGARDER URL DANS LES INFOS DE LA PARTIE POUR POUVOIR "SAUVEGARDER" LES INFORMATIONS
-// QUAND JE SUIS SUR UNE PARTIE AVEC LES INFOS POUVOIR RECHARGER LA PAGE
+// CORRIGER CURSEUR AU CLIC
+// acces token = access token
+// NETTOYAGE DES COMPOSANTS AVEC LA LOUPE
+// CONSOLE.LOG = RAJOUTER DES STRINGS POUR SAVOIR CE QUE C
+// METTRE REQUETES DANS LE STORE ( aide toi de la loupe + cherche axios )
 
 // A FAIRE
 
-// SAUVEGARDER LE STORE DANS LE LOCALSTORAGE et récuperer
+// SAUVEGARDER LE STORE DANS LE LOCALSTORAGE et récuperer ( LOADING ET SAVE + LOADING DANS APP AVEC MOUNTED)
+// MODIFIER GAMEINFOS
+// METTRE UNE BOUCLE DANS LA PAGE PLATEAUX AU LIEU DE 50 DIV
