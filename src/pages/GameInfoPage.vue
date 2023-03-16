@@ -1,7 +1,10 @@
 <template>
     <div>
         <h1 @click="urlFunction">INFOS DE LA PARTIE : </h1>
-        {{ this.gameInfo }}
+        <div v-if="this.$store.state.gamesinfosloaded == false">
+          {{ this.$store.state.gamesInfos }}
+        </div>
+        {{ this.$store.state.gamesInfos }}
         <div>
           <input type="button" @click="reload" value="RAFFRAICHIR LA PAGE">
         </div>
@@ -9,7 +12,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
 
   data: function () {
@@ -22,25 +24,14 @@ export default {
   },
   methods: {
     urlFunction () {
-      this.url = window.location.href
-      this.boardId = this.url.substring(this.url.lastIndexOf('board') + 6)
-      console.log(this.boardId)
-      while (this.gameInfo[this.index].id !== this.boardId) {
-        this.index = this.index + 1
-      }
-      this.gameInfo = this.gameInfo[this.index]
+      this.$store.dispatch('gameinfo')
     },
     reload () {
       location.reload()
     }
   },
   mounted () {
-    axios
-      .get('https://naval.laize.pro/board')
-      .then((reponse) => {
-        this.gameInfo = reponse.data
-        this.urlFunction()
-      })
+    this.urlFunction()
   }
 }
 </script>

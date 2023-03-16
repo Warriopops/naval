@@ -7,9 +7,11 @@ export default createStore({
     join: false,
     identifiants: { login: '', password: '*******', connected: false, access_token: '' },
     identifiantsParty: '',
-    myGames: [],
+    myGames: null,
     partyLoaded: false,
-    gamesLobby: []
+    gamesLobby: [],
+    gamesInfos: null,
+    gamesinfosloaded: false
   },
   getters: {
   },
@@ -32,6 +34,17 @@ export default createStore({
     partyloaded (state, reponse) {
       state.gamesLobby = reponse
       state.partyLoaded = true
+    },
+    gameinformation (state, reponse) {
+      state.gamesInfos = reponse
+      let index = 0
+      const url = window.location.href
+      const boardId = url.substring(url.lastIndexOf('board') + 6)
+      while (state.gamesInfos[index].id !== boardId) {
+        index = index + 1
+      }
+      state.gamesInfos = state.gamesInfos[index]
+      state.gamesinfosloaded = true
     }
   },
   actions: {
@@ -105,6 +118,13 @@ export default createStore({
         .then((reponse) => {
           context.commit('partyloaded', reponse.data)
         })
+    },
+    gameinfo (context) {
+      axios
+        .get('https://naval.laize.pro/board')
+        .then((reponse) => {
+          context.commit('gameinformation', reponse.data)
+        })
     }
     // getParties() {
     //   blabla.then(() => this.commit('parties'));
@@ -130,9 +150,13 @@ export default createStore({
 // NETTOYAGE DES COMPOSANTS AVEC LA LOUPE
 // CONSOLE.LOG = RAJOUTER DES STRINGS POUR SAVOIR CE QUE C
 // METTRE REQUETES DANS LE STORE ( aide toi de la loupe + cherche axios )
+// METTRE UNE BOUCLE DANS LA PAGE PLATEAUX AU LIEU DE 50 DIV
+// MODIFIER GAMEINFOS
 
 // A FAIRE
 
 // SAUVEGARDER LE STORE DANS LE LOCALSTORAGE et récuperer ( LOADING ET SAVE + LOADING DANS APP AVEC MOUNTED)
-// MODIFIER GAMEINFOS
-// METTRE UNE BOUCLE DANS LA PAGE PLATEAUX AU LIEU DE 50 DIV
+
+// BONUS A FAIRE
+
+// MUSIQUE POUR TOUTE LAPP
