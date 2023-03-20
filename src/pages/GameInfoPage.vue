@@ -1,10 +1,10 @@
 <template>
     <div>
         <h1 @click="urlFunction">INFOS DE LA PARTIE : </h1>
-        <div v-if="this.$store.state.gamesinfosloaded == false">
-          {{ this.$store.state.gamesInfos }}
+        <div v-if="gamesinfosloaded == false">
+          {{ gamesInfos }}
         </div>
-        {{ this.$store.state.gamesInfos }}
+        {{ gamesInfos }}
         <div>
           <input type="button" @click="reload" value="RAFFRAICHIR LA PAGE">
         </div>
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
 
   data: function () {
@@ -32,6 +33,12 @@ export default {
   },
   mounted () {
     this.urlFunction()
+  },
+  computed: {
+    ...mapState({
+      gamesInfos: 'gamesInfos',
+      gamesinfosloaded: 'gamesinfosloaded'
+    })
   }
 }
 </script>

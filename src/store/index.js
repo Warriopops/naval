@@ -3,10 +3,11 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    toggle: false,
+    toggle_connect: false,
     join: false,
     identifiants: { login: '', password: '*******', connected: false, access_token: '' },
     identifiantsParty: '',
+    test: 'lol',
     myGames: null,
     partyLoaded: false,
     gamesLobby: [],
@@ -28,8 +29,8 @@ export default createStore({
     Login (state, identifiants) {
       state.identifiants.login = identifiants.login
     },
-    Load_data (state, load) {
-      Object.assign(state, load)
+    Load_data (state, data) {
+      state.identifiants = data
     },
     partyloaded (state, reponse) {
       state.gamesLobby = reponse
@@ -37,19 +38,13 @@ export default createStore({
     },
     gameinformation (state, reponse) {
       state.gamesInfos = reponse
-      let index = 0
-      const url = window.location.href
-      const boardId = url.substring(url.lastIndexOf('board') + 6)
-      while (state.gamesInfos[index].id !== boardId) {
-        index = index + 1
-      }
-      state.gamesInfos = state.gamesInfos[index]
       state.gamesinfosloaded = true
     }
   },
   actions: {
-    save (state) {
-      const save = JSON.stringify(state)
+    save (context) {
+      console.log('context', context.state.identifiants)
+      const save = JSON.stringify(context.state.identifiants)
       localStorage.setItem('identifiants', save)
     },
     load ({ commit }) {
@@ -89,9 +84,7 @@ export default createStore({
     },
     join ({ state }, list) {
       const token = state.identifiants.access_token.access_token
-      console.log('store', list)
       state.identifiantsParty = list
-      console.log(list)
       axios.get('https://naval.laize.pro/board/' + list.id + '/join', {
         headers: { Authorization: `bearer ${token}` }
       }).then((response) => {
@@ -119,10 +112,18 @@ export default createStore({
           context.commit('partyloaded', reponse.data)
         })
     },
-    gameinfo (context) {
+    gameinfo ({ state }, context) {
+      const url = window.location.href
+      const boardId = url.substring(url.lastIndexOf('board') + 6)
+      const token = state.identifiants.access_token.access_token
+      console.log('token', token)
+      console.log('boardi', boardId)
       axios
-        .get('https://naval.laize.pro/board')
+        .get('https://naval.laize.pro/board/' + boardId, {
+          headers: { Authorization: `bearer ${token}` }
+        })
         .then((reponse) => {
+          console.log('reponse', reponse)
           context.commit('gameinformation', reponse.data)
         })
     }
@@ -145,18 +146,12 @@ export default createStore({
 })
 
 // FAIS
-// CORRIGER CURSEUR AU CLIC
-// acces token = access token
-// NETTOYAGE DES COMPOSANTS AVEC LA LOUPE
-// CONSOLE.LOG = RAJOUTER DES STRINGS POUR SAVOIR CE QUE C
-// METTRE REQUETES DANS LE STORE ( aide toi de la loupe + cherche axios )
-// METTRE UNE BOUCLE DANS LA PAGE PLATEAUX AU LIEU DE 50 DIV
-// MODIFIER GAMEINFOS
-
-// A FAIRE
-
+// FORMULAIRE AVEC LA TOUCHE ENTRER
+// CORRIGER CURSEUR AU CLIC METTRE PARTOUT
+// TOGGLE SERT A QUOI ? ( LE TOGGLE SERT A FERMER LE FORMULAIRE SE CONNECTER DANS LE HOME PAGE)
+// CORRIGER LE PLATEAUX
+// SE RENSEIGNER SUR LES MAPSTATE ET LES APPLIQUER A LA PLACE DES STATES
 // SAUVEGARDER LE STORE DANS LE LOCALSTORAGE et récuperer ( LOADING ET SAVE + LOADING DANS APP AVEC MOUNTED)
 
-// BONUS A FAIRE
-
-// MUSIQUE POUR TOUTE LAPP
+// A FAIRE
+// MODIFIER GAMEINFOS ( je sais plus )

@@ -9,7 +9,7 @@
                     <input type="text" id="pseudo" placeholder="Pseudo" v-model="pseudo">
                 </div>
                 <div class="identifiant">
-                    <input type="text" id="password" placeholder="Mot de passe" v-model="password">
+                    <input type="text" id="password" placeholder="Mot de passe" v-model="password" v-on:keyup.enter="submitForm">
                 </div>
             </div>
             <div class="formulaire-button">
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+
 export default {
   emit: ['onSubmit'],
   components: {
@@ -48,7 +49,7 @@ export default {
       }
     },
     close () {
-      this.$store.state.toggle = false
+      this.$store.state.toggle_connect = false
     }
   }
 }
@@ -93,6 +94,7 @@ h1{
     background-color: rgb(169, 0, 0);
     background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    cursor:pointer
 }
 
 .styled:hover {
@@ -129,5 +131,6 @@ h2{
     margin-top:2px;
     margin-left:480px;
     color:red;
+    cursor:pointer
 }
 </style>

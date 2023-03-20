@@ -14,12 +14,12 @@
             </div>
             <h1>Plongez dans l'action,<br> defiez vos amis ou d autres joueurs pour la domination navale !</h1>
             <div>
-            <h2 v-if="this.$store.state.identifiants.connected === true">Pseudo : {{ pseudo }}</h2>
-            <input v-if="this.$store.state.identifiants.connected === false" type="button" class="favorite styled" @click="formConnect()" value="SE CONNECTER !"/>
-            <input v-if="this.$store.state.identifiants.connected === false" type="button" class="favorite styled" @click="register()"  value="REJOIGNEZ-NOUS !"/>
+            <h2 v-if="identifiants.connected === true">Pseudo : {{ pseudo }}</h2>
+            <input v-if="identifiants.connected === false" type="button" class="favorite styled" @click="formConnect()" value="SE CONNECTER !"/>
+            <input v-if="identifiants.connected === false" type="button" class="favorite styled" @click="register()"  value="REJOIGNEZ-NOUS !"/>
             </div>
         </div>
-            <formulaire v-if="this.$store.state.toggle && this.$store.state.identifiants.connected === false" class="connect"
+            <formulaire v-if="toggle_connect && identifiants.connected === false" class="connect"
             msg="X" title="Connecte toi !" buttonTitle="Se connecter !" @submit="login"/>
             <navbar/>
         <div class="news-title">
@@ -51,6 +51,7 @@ import footer from '@/assets/footer.png'
 import body from '@/assets/body.png'
 import formulaire from '@/components/FormulaireComponent.vue'
 import navbar from '@/components/NavbarComponent.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -68,6 +69,10 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      identifiants: 'identifiants',
+      toggle_connect: 'toggle_connect'
+    }),
     pseudo () {
       return this.$store.state.identifiants.login
     }
@@ -88,7 +93,7 @@ export default {
       this.$router.push('/lost')
     },
     formConnect () {
-      this.$store.state.toggle = !this.$store.state.toggle
+      this.$store.state.toggle_connect = !this.$store.state.toggle_connect
     }
   }
 }
@@ -145,6 +150,7 @@ img{
     background-color: rgb(169, 0, 0);
     background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    cursor:pointer
     }
     .join{
       width:95px;

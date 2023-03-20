@@ -20,7 +20,7 @@
       <h2>STATUS DU MATCH</h2>
       <h2>BOUTTON</h2>
     </div>
-    <div class="loading" v-if="this.$store.state.partyLoaded == false">
+    <div class="loading" v-if="partyLoaded == false">
         <h2>CHARGEMENT DES LOBBYS</h2>
       <div class="half-circle-spinner">
       <div class="circle circle-1"></div>
@@ -62,6 +62,7 @@
 <script>
 import footer2 from '@/assets/footer2.png'
 import navbar from '@/components/NavbarComponent.vue'
+import { mapState } from 'vuex'
 
 export default {
 
@@ -81,14 +82,18 @@ export default {
     this.$store.dispatch('loadingparty')
   },
   computed: {
+    ...mapState({
+      gamesLobby: 'gamesLobby',
+      partyLoaded: 'partyLoaded'
+    }),
     listeOrdered () {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      return this.$store.state.gamesLobby.sort((p2, p1) => {
+      return this.gamesLobby.sort((p2, p1) => {
         let modifier = 1
         if (this.sortDirection === 'desc') modifier = -1
         if (p1[this.sortBy] < p2[this.sortBy]) return -1 * modifier
         if (p1[this.sortBy] > p2[this.sortBy]) return 1 * modifier
-        this.list = this.$store.state.gamesLobby
+        this.list = this.gamesLobby
         return 0
       })
     }
@@ -158,6 +163,7 @@ export default {
     background-color: rgb(169, 0, 0);
     background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    cursor:pointer
     }
     .join{
       width:95px;

@@ -12,6 +12,7 @@
 <script>
 
 import navbar from '@/components/NavbarComponent.vue'
+import { mapState } from 'vuex'
 export default {
   data: function () {
     return {
@@ -20,6 +21,11 @@ export default {
   },
   components: {
     navbar
+  },
+  computed: {
+    ...mapState({
+      myGames: 'myGames'
+    })
   },
   methods: {
     mygames () {

@@ -10,6 +10,7 @@ import Board from '@/pages/GameInfoPage.vue'
 import Debug from '@/pages/DeBug.vue'
 import Plateaux from '@/components/PlateauxComponent.vue'
 import Mygames from '@/pages/MyGamesPage.vue'
+import Rules from '@/pages/RulesPage.vue'
 
 const routes = [
   {
@@ -61,6 +62,11 @@ const routes = [
     name: 'mygames',
     path: '/Mygames',
     component: Mygames
+  },
+  {
+    name: 'rules',
+    path: '/rules',
+    component: Rules
   }
 ]
 
