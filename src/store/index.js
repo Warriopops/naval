@@ -19,39 +19,41 @@ export default createStore({
   mutations: {
     // loadToState(state, storeSaved) {
 
-    LoginSuccess (state, token) {
+    LoginSuccess(state, token) {
       state.identifiants.connected = true
       state.identifiants.access_token = token
     },
-    LoginFail (state) {
+    LoginFail(state) {
       state.identifiants.connected = false
     },
-    Login (state, identifiants) {
+    Login(state, identifiants) {
       state.identifiants.login = identifiants.login
     },
-    Load_data (state, data) {
+    Load_data(state, data) {
       state.identifiants = data
     },
-    partyloaded (state, reponse) {
+    partyloaded(state, reponse) {
       state.gamesLobby = reponse
       state.partyLoaded = true
     },
-    gameinformation (state, reponse) {
+    gameinformation(state, reponse) {
       state.gamesInfos = reponse
       state.gamesinfosloaded = true
     }
   },
   actions: {
-    save (context) {
+    save(context) {
       console.log('context', context.state.identifiants)
       const save = JSON.stringify(context.state.identifiants)
       localStorage.setItem('identifiants', save)
     },
-    load ({ commit }) {
-      const data = JSON.parse(localStorage.getItem('identifiants'))
-      commit('Load_data', data)
+    load({ commit }) {
+      if (localStorage.getItem('identifiants') !== null) {
+        const data = JSON.parse(localStorage.getItem('identifiants'))
+        commit('Load_data', data)
+      }
     },
-    Login (context, identifiants) {
+    Login(context, identifiants) {
       context.commit('Login', identifiants)
       axios.post('https://naval.laize.pro/user/login', {
         login: identifiants.login,
@@ -66,7 +68,7 @@ export default createStore({
         context.commit('LoginFail', identifiants)
       })
     },
-    Mygames ({ state }) {
+    Mygames({ state }) {
       const token = state.identifiants.access_token.access_token
       axios.get('https://naval.laize.pro/board/mygames', {
         headers: { Authorization: `bearer ${token}` }
@@ -74,7 +76,7 @@ export default createStore({
         state.myGames = response.data
       }).catch((error) => { console.log(error) })
     },
-    Createparty ({ state }) {
+    Createparty({ state }) {
       const token = state.identifiants.access_token.access_token
       axios.get('https://naval.laize.pro/board', {
         headers: { Authorization: `bearer ${token}` }
@@ -82,7 +84,7 @@ export default createStore({
         console.log(reponse)
       })
     },
-    join ({ state }, list) {
+    join({ state }, list) {
       const token = state.identifiants.access_token.access_token
       state.identifiantsParty = list
       axios.get('https://naval.laize.pro/board/' + list.id + '/join', {
@@ -94,7 +96,7 @@ export default createStore({
         console.log(error, 'COMPLET')
       })
     },
-    register (state, identifiants) {
+    register(state, identifiants) {
       console.log(state)
       axios.post('https://naval.laize.pro/user/signup', {
         login: identifiants.pseudo,
@@ -105,14 +107,14 @@ export default createStore({
         console.log('erreur d inscription', error)
       })
     },
-    loadingparty (context) {
+    loadingparty(context) {
       axios
         .get('https://naval.laize.pro/board')
         .then((reponse) => {
           context.commit('partyloaded', reponse.data)
         })
     },
-    gameinfo ({ state }, context) {
+    gameinfo({ state }, context) {
       const url = window.location.href
       const boardId = url.substring(url.lastIndexOf('board') + 6)
       const token = state.identifiants.access_token.access_token
@@ -152,6 +154,7 @@ export default createStore({
 // CORRIGER LE PLATEAUX
 // SE RENSEIGNER SUR LES MAPSTATE ET LES APPLIQUER A LA PLACE DES STATES
 // SAUVEGARDER LE STORE DANS LE LOCALSTORAGE et récuperer ( LOADING ET SAVE + LOADING DANS APP AVEC MOUNTED)
+// MODIFIER GAMEINFOS
 
 // A FAIRE
-// MODIFIER GAMEINFOS ( je sais plus )
+// CORRIGER LINTER
