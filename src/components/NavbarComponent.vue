@@ -1,12 +1,26 @@
 <template>
-    <div class="navbar">
-            <h1 @click="acceuil">Acceuil</h1>
-            <h1 v-if="this.identifiants.connected === true" @click="lobby">Lobby</h1>
-            <h1 v-if="this.identifiants.connected === true" @click="mygames">Mes Parties</h1>
-            <h1>Classement ( a venir )</h1>
-            <h1>Boutique ( a venir )</h1>
-            <h1 @click="rules">Regles du jeu</h1>
-        </div>
+  <div class="navbar">
+    <h1 @click="acceuil">
+      Acceuil
+    </h1>
+    <h1
+      v-if="this.identifiants.connected === true"
+      @click="lobby"
+    >
+      Lobby
+    </h1>
+    <h1
+      v-if="this.identifiants.connected === true"
+      @click="mygames"
+    >
+      Mes Parties
+    </h1>
+    <h1>Classement ( a venir )</h1>
+    <h1>Boutique ( a venir )</h1>
+    <h1 @click="rules">
+      Regles du jeu
+    </h1>
+  </div>
 </template>
 
 <script>

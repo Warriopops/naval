@@ -1,9 +1,17 @@
 <template>
-    <div>
-        <input @click="resetparty" type="button" class="favorite styled" value="Reset Party">
-        <input type="button" @click="save">
-        {{ test }}
-    </div>
+  <div>
+    <input
+      @click="resetparty"
+      type="button"
+      class="favorite styled"
+      value="Reset Party"
+    >
+    <input
+      type="button"
+      @click="save"
+    >
+    {{ test }}
+  </div>
 </template>
 
 <script>

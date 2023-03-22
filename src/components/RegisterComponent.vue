@@ -1,20 +1,30 @@
 <template>
-    <div class="container-header">
-        <div class="header">
-            <h1>Bataille Navale</h1>
-            <h2>Jouez en ligne contre vos amis !</h2>
-            <h3>Placez vos bateaux, Coulez les bateaux ennemis !</h3>
-        </div>
-        <div class="container">
-          <div class="register">
-            <formulaire v-bind:img="footer2"  title="Inscrit toi !" buttonTitle="S'inscrire" @submit="register"/>
-            <font-awesome-icon icon="fa-solid fa-left" />
-          </div>
-          <div class="back">
-            <input type="button" class="favorite styled" @click="back" value="Retour">
-          </div>
-        </div>
+  <div class="container-header">
+    <div class="header">
+      <h1>Bataille Navale</h1>
+      <h2>Jouez en ligne contre vos amis !</h2>
+      <h3>Placez vos bateaux, Coulez les bateaux ennemis !</h3>
     </div>
+    <div class="container">
+      <div class="register">
+        <formulaire
+          :img="footer2"
+          title="Inscrit toi !"
+          button-title="S'inscrire"
+          @submit="register"
+        />
+        <font-awesome-icon icon="fa-solid fa-left" />
+      </div>
+      <div class="back">
+        <input
+          type="button"
+          class="favorite styled"
+          @click="back"
+          value="Retour"
+        >
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

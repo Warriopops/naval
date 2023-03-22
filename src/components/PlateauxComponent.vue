@@ -1,6 +1,8 @@
 <template>
-        <div class="plateau" id="plateau">
-    </div>
+  <div
+    class="plateau"
+    id="plateau"
+  />
 </template>
 
 <script>

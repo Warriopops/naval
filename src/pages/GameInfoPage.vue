@@ -1,14 +1,20 @@
 <template>
-    <div>
-        <h1 @click="urlFunction">INFOS DE LA PARTIE : </h1>
-        <div v-if="gamesinfosloaded == false">
-          {{ gamesInfos }}
-        </div>
-        {{ gamesInfos }}
-        <div>
-          <input type="button" @click="reload" value="RAFFRAICHIR LA PAGE">
-        </div>
+  <div>
+    <h1 @click="urlFunction">
+      INFOS DE LA PARTIE :
+    </h1>
+    <div v-if="gamesinfosloaded == false">
+      {{ gamesInfos }}
     </div>
+    {{ gamesInfos }}
+    <div>
+      <input
+        type="button"
+        @click="reload"
+        value="RAFFRAICHIR LA PAGE"
+      >
+    </div>
+  </div>
 </template>
 
 <script>

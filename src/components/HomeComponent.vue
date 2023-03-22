@@ -1,11 +1,15 @@
 <template>
-    <div class="formulaire">
-        <div class="formulaire-container">
-            <div class="formulaire-button">
-                <input type="button" :value="buttonTitle" class="favorite styled">
-            </div>
-        </div>
+  <div class="formulaire">
+    <div class="formulaire-container">
+      <div class="formulaire-button">
+        <input
+          type="button"
+          :value="buttonTitle"
+          class="favorite styled"
+        >
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -13,8 +17,14 @@ export default {
   components: {
   },
   props: {
-    title: String,
-    buttonTitle: String
+    title: {
+      title: String,
+      default: null
+    },
+    buttonTitle: {
+      buttonTitle: String,
+      default: null
+    }
   }
 }
 </script>

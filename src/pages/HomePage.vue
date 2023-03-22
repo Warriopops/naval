@@ -1,48 +1,84 @@
 <template>
-    <div>
-        <audio volume="0.2" loop="true">
-        <source src="@/assets/musique.mp3" type="audio/mpeg">
-        <source src="@/assets/musique.mp3" type="audio/wav">
-        <source src="@/assets/musique.mp3" type="audio/ogg; codecs=vorbis">
-      </audio>
-        <div class="header-container">
-            <div class="logo">
-                <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
-                    <div class="logo-name">
-                        <h1>LA BATAILLE NAVALE</h1>
-                    </div>
-            </div>
-            <h1>Plongez dans l'action,<br> defiez vos amis ou d autres joueurs pour la domination navale !</h1>
-            <div>
-            <h2 v-if="identifiants.connected === true">Pseudo : {{ pseudo }}</h2>
-            <input v-if="identifiants.connected === false" type="button" class="favorite styled" @click="formConnect()" value="SE CONNECTER !"/>
-            <input v-if="identifiants.connected === false" type="button" class="favorite styled" @click="register()"  value="REJOIGNEZ-NOUS !"/>
-            </div>
+  <div>
+    <audio
+      volume="0.2"
+      loop="true"
+    >
+      <source
+        src="@/assets/musique.mp3"
+        type="audio/mpeg"
+      >
+      <source
+        src="@/assets/musique.mp3"
+        type="audio/wav"
+      >
+      <source
+        src="@/assets/musique.mp3"
+        type="audio/ogg; codecs=vorbis"
+      >
+    </audio>
+    <div class="header-container">
+      <div class="logo">
+        <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
+        <div class="logo-name">
+          <h1>LA BATAILLE NAVALE</h1>
         </div>
-            <formulaire v-if="toggle_connect && identifiants.connected === false" class="connect"
-            msg="X" title="Connecte toi !" buttonTitle="Se connecter !" @submit="login"/>
-            <navbar/>
-        <div class="news-title">
-            <h1>Dernieres News</h1>
-            </div>
-            <div class="news-container">
-                <div class="news1">
-                    <h2>A VENIR . . .</h2>
-                </div>
-                <div class="news2">
-                    <h2>A VENIR . . .</h2>
-                </div>
-                <div class="news3">
-                    <h2>A VENIR . . .</h2>
-                </div>
-            </div>
-            <div class="navbar-footer">
-                <h1>@Warriopops</h1>
-            </div>
-            <div class="testo" :key="index" v-for="(list, index) in this.list">
-                <h2>{{ list }}</h2>
-            </div>
+      </div>
+      <h1>Plongez dans l'action,<br> defiez vos amis ou d autres joueurs pour la domination navale !</h1>
+      <div>
+        <h2 v-if="identifiants.connected === true">
+          Pseudo : {{ pseudo }}
+        </h2>
+        <input
+          v-if="identifiants.connected === false"
+          type="button"
+          class="favorite styled"
+          @click="formConnect()"
+          value="SE CONNECTER !"
+        >
+        <input
+          v-if="identifiants.connected === false"
+          type="button"
+          class="favorite styled"
+          @click="register()"
+          value="REJOIGNEZ-NOUS !"
+        >
+      </div>
     </div>
+    <formulaire
+      v-if="toggle_connect && identifiants.connected === false"
+      class="connect"
+      msg="X"
+      title="Connecte toi !"
+      button-title="Se connecter !"
+      @submit="login"
+    />
+    <navbar />
+    <div class="news-title">
+      <h1>Dernieres News</h1>
+    </div>
+    <div class="news-container">
+      <div class="news1">
+        <h2>A VENIR . . .</h2>
+      </div>
+      <div class="news2">
+        <h2>A VENIR . . .</h2>
+      </div>
+      <div class="news3">
+        <h2>A VENIR . . .</h2>
+      </div>
+    </div>
+    <div class="navbar-footer">
+      <h1>@Warriopops</h1>
+    </div>
+    <div
+      class="testo"
+      :key="index"
+      v-for="(liste, index) in this.list"
+    >
+      <h2>{{ list }}</h2>
+    </div>
+  </div>
 </template>
 
 <script>

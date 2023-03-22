@@ -1,14 +1,17 @@
 <template>
-    <div>
-        <h1>MES PARTIES</h1>
-        <navbar class="navbar"/>
-        <div class="container" :key="index" v-for="(list, index) in list">
-            <h1>LOBBY {{ index }} : </h1>
-            <h2>{{ list.host.login }} VS {{ list.guest.login }}</h2>
-        </div>
+  <div>
+    <h1>MES PARTIES</h1>
+    <navbar class="navbar" />
+    <div
+      class="container"
+      :key="index"
+      v-for="(list, index) in list"
+    >
+      <h1>LOBBY {{ index }} : </h1>
+      <h2>{{ list.host.login }} VS {{ list.guest.login }}</h2>
     </div>
+  </div>
 </template>
-
 <script>
 
 import navbar from '@/components/NavbarComponent.vue'

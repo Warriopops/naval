@@ -1,8 +1,13 @@
 <template>
-    <div class="container-header">
-        <h1>PAGE NON TROUVER</h1>
-        <input type="button" class="favorite styled" @click="back" value="Retour">
-        </div>
+  <div class="container-header">
+    <h1>PAGE NON TROUVER</h1>
+    <input
+      type="button"
+      class="favorite styled"
+      @click="back"
+      value="Retour"
+    >
+  </div>
 </template>
 
 <script>

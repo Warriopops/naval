@@ -1,22 +1,41 @@
+
 <template>
-    <div class="formulaire">
-        <h1>{{ title }}</h1>
-        <div class="formulaire-container">
-            <h1>{{ title }}</h1>
-            <h2 @click="close">{{ msg }}</h2>
-            <div class="identifiant-container">
-                <div class="identifiant">
-                    <input type="text" id="pseudo" placeholder="Pseudo" v-model="pseudo">
-                </div>
-                <div class="identifiant">
-                    <input type="text" id="password" placeholder="Mot de passe" v-model="password" v-on:keyup.enter="submitForm">
-                </div>
-            </div>
-            <div class="formulaire-button">
-                <input type="button" :value="buttonTitle" class="favorite styled" @click="submitForm">
-            </div>
+  <div class="formulaire">
+    <h1>{{ title }}</h1>
+    <div class="formulaire-container">
+      <h1>{{ title }}</h1>
+      <h2 @click="close">
+        {{ msg }}
+      </h2>
+      <div class="identifiant-container">
+        <div class="identifiant">
+          <input
+            type="text"
+            id="pseudo"
+            placeholder="Pseudo"
+            v-model="pseudo"
+          >
         </div>
+        <div class="identifiant">
+          <input
+            type="text"
+            id="password"
+            placeholder="Mot de passe"
+            v-model="password"
+            @keyup.enter="submitForm"
+          >
+        </div>
+      </div>
+      <div class="formulaire-button">
+        <input
+          type="button"
+          :value="buttonTitle"
+          class="favorite styled"
+          @click="submitForm"
+        >
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -43,6 +62,7 @@ export default {
   methods: {
     submitForm () {
       if (this.pseudo !== '' && this.password !== '') {
+        // eslint-disable-next-line vue/require-explicit-emits
         this.$emit('submit', this.pseudo, this.password)
         this.pseudo = ''
         this.password = ''

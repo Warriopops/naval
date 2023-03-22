@@ -5,8 +5,8 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'plugin:vue/essential',
-    'standard'
+    'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-strongly-recommended'
   ],
   parserOptions: {
     ecmaVersion: 12,
@@ -17,5 +17,8 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
+    "vue/require-default-prop": "off",
+    "vue/require-prop-types": "off",
+    "vue/no-template-shadow": "off"
   }
-};
+}

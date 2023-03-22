@@ -1,18 +1,35 @@
 <template>
   <div class="container-header">
-    <audio volume="0.2" loop="true">
-        <source src="@/assets/musique.mp3" type="audio/mpeg">
-        <source src="@/assets/musique.mp3" type="audio/wav">
-        <source src="@/assets/musique.mp3" type="audio/ogg; codecs=vorbis">
-      </audio>
-      <div class="heeader">
+    <audio
+      volume="0.2"
+      loop="true"
+    >
+      <source
+        src="@/assets/musique.mp3"
+        type="audio/mpeg"
+      >
+      <source
+        src="@/assets/musique.mp3"
+        type="audio/wav"
+      >
+      <source
+        src="@/assets/musique.mp3"
+        type="audio/ogg; codecs=vorbis"
+      >
+    </audio>
+    <div class="heeader">
       <div class="logo">
-            <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
-            </div>
-    <h1>LOBBY</h1>
-    <input @click="Createparty" type="button" class="favorite styled" value="Créer une partie">
+        <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
+      </div>
+      <h1>LOBBY</h1>
+      <input
+        @click="Createparty"
+        type="button"
+        class="favorite styled"
+        value="Créer une partie"
+      >
     </div>
-    <navbar/>
+    <navbar />
     <div class="test">
       <h2>LOBBY</h2>
       <h2>HOTE</h2>
@@ -20,42 +37,92 @@
       <h2>STATUS DU MATCH</h2>
       <h2>BOUTTON</h2>
     </div>
-    <div class="loading" v-if="partyLoaded == false">
-        <h2>CHARGEMENT DES LOBBYS</h2>
+    <div
+      class="loading"
+      v-if="partyLoaded == false"
+    >
+      <h2>CHARGEMENT DES LOBBYS</h2>
       <div class="half-circle-spinner">
-      <div class="circle circle-1"></div>
-      <div class="circle circle-2"></div>
+        <div class="circle circle-1" />
+        <div class="circle circle-2" />
       </div>
-      </div>
-        <div class="testo" :key="index" v-for="(list, index) in listeOrdered">
-          <div  v-if=" index < limite" >
-            <div v-if="list.guest == null" class="container-partie">
-              <h3>{{ index }}</h3>
-              <h3>{{ list.host.login }}</h3>
-              <h3>INCONNU</h3>
-              <h3>EN ATTENTE</h3>
-              <router-link :to="{ name: 'board', params: { id: list.id } }">
-                <input type="button" class="join" @click="join(index)" value="REJOINDRE">
-              </router-link>
-            </div>
-            <div v-if="list.guest != null" class="container-partie">
-              <h3>{{ index }}</h3>
-              <h3>{{ list.host.login }}</h3>
-              <h3>{{ list.guest.login }}</h3>
-              <h3>EN COURS</h3>
-              <h4>COMPLET</h4>
-            </div>
-          </div>
+    </div>
+    <div
+      class="testo"
+      :key="index"
+      v-for="(list, index) in listeOrdered"
+    >
+      <div v-if=" index < limite">
+        <div
+          v-if="list.guest == null"
+          class="container-partie"
+        >
+          <h3>{{ index }}</h3>
+          <h3>{{ list.host.login }}</h3>
+          <h3>INCONNU</h3>
+          <h3>EN ATTENTE</h3>
+          <router-link :to="{ name: 'board', params: { id: list.id } }">
+            <input
+              type="button"
+              class="join"
+              @click="join(index)"
+              value="REJOINDRE"
+            >
+          </router-link>
         </div>
-      <input type="button" class="favorite styled" @click="back" value="Retour">
-      <input type="button" class="favorite styled" @click="audio()" value="Match Précedent">
-      <input type="button" class="favorite styled" @click="audio" value="Match Suivant">
-      <input type="button" class="favorite styled" @click="refresh" value="Raffraichir">
-      <audio preload="metadata" id="your-audio">
-        <source src="@/assets/cloche.mp3" type="audio/mpeg">
-        <source src="@/assets/cloche.mp3" type="audio/wav">
-        <source src="@/assets/cloche.mp3" type="audio/ogg; codecs=vorbis">
-      </audio>
+        <div
+          v-if="list.guest != null"
+          class="container-partie"
+        >
+          <h3>{{ index }}</h3>
+          <h3>{{ list.host.login }}</h3>
+          <h3>{{ list.guest.login }}</h3>
+          <h3>EN COURS</h3>
+          <h4>COMPLET</h4>
+        </div>
+      </div>
+    </div>
+    <input
+      type="button"
+      class="favorite styled"
+      @click="back"
+      value="Retour"
+    >
+    <input
+      type="button"
+      class="favorite styled"
+      @click="audio()"
+      value="Match Précedent"
+    >
+    <input
+      type="button"
+      class="favorite styled"
+      @click="audio"
+      value="Match Suivant"
+    >
+    <input
+      type="button"
+      class="favorite styled"
+      @click="refresh"
+      value="Raffraichir"
+    >
+    <audio
+      preload="metadata"
+      id="your-audio"
+    >
+      <source
+        src="@/assets/cloche.mp3"
+        type="audio/mpeg"
+      >
+      <source
+        src="@/assets/cloche.mp3"
+        type="audio/wav"
+      >
+      <source
+        src="@/assets/cloche.mp3"
+        type="audio/ogg; codecs=vorbis"
+      >
+    </audio>
   </div>
 </template>
 

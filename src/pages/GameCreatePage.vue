@@ -1,25 +1,43 @@
 <template>
-    <div class="container-header">
-        <h1>Creation de partie</h1>
-        <navbar/>
-        <select v-model="NumberBoard" name="board" id="board-select">
-            <option value=1>1</option>
-            <option value=2>2</option>
-            <option value=3>3</option>
-            <option value=4>4</option>
-            <option value=5>5</option>
-        </select>
-        <div>
-            <button @click="CreateBoard">Créer un bateau</button>
-        </div>
-        <div>
-            <h3>Bateaux creer:</h3>
-            <div>
-              <h3>{{ this.Board }}</h3>
-            </div>
-            <button @click="CreateParty">Créer une partie</button>
-        </div>
+  <div class="container-header">
+    <h1>Creation de partie</h1>
+    <navbar />
+    <select
+      v-model="NumberBoard"
+      name="board"
+      id="board-select"
+    >
+      <option value="1">
+        1
+      </option>
+      <option value="2">
+        2
+      </option>
+      <option value="3">
+        3
+      </option>
+      <option value="4">
+        4
+      </option>
+      <option value="5">
+        5
+      </option>
+    </select>
+    <div>
+      <button @click="CreateBoard">
+        Créer un bateau
+      </button>
     </div>
+    <div>
+      <h3>Bateaux creer:</h3>
+      <div>
+        <h3>{{ this.Board }}</h3>
+      </div>
+      <button @click="CreateParty">
+        Créer une partie
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
