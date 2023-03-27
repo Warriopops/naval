@@ -19,8 +19,8 @@
         <input
           type="button"
           class="favorite styled"
-          @click="back"
           value="Retour"
+          @click="back"
         >
       </div>
     </div>
@@ -28,29 +28,29 @@
 </template>
 
 <script>
-import formulaire from './FormulaireComponent.vue'
-import footer2 from '@/assets/footer2.png'
+  import formulaire from './FormulaireComponent.vue'
+  import footer2 from '@/assets/footer2.png'
 
-export default {
-  components: {
-    formulaire
-  },
-  data () {
-    return {
-      footer2
-    }
-  },
-  methods: {
-    register (pseudo, password) {
-      const identifiantsRegister = { pseudo, password }
-      this.$store.dispatch('register', identifiantsRegister)
-      this.$router.push('/')
+  export default {
+    components: {
+      formulaire
     },
-    back () {
-      this.$router.push('/')
+    data () {
+      return {
+        footer2
+      }
+    },
+    methods: {
+      register (pseudo, password) {
+        const identifiantsRegister = { pseudo, password }
+        this.$store.dispatch('register', identifiantsRegister)
+        this.$router.push('/')
+      },
+      back () {
+        this.$router.push('/')
+      }
     }
   }
-}
 </script>
 
 <style scoped>

@@ -3,9 +3,9 @@
     <h1>Creation de partie</h1>
     <navbar />
     <select
+      id="board-select"
       v-model="NumberBoard"
       name="board"
-      id="board-select"
     >
       <option value="1">
         1
@@ -31,7 +31,7 @@
     <div>
       <h3>Bateaux creer:</h3>
       <div>
-        <h3>{{ this.Board }}</h3>
+        <h3>{{ Board }}</h3>
       </div>
       <button @click="CreateParty">
         Créer une partie
@@ -42,26 +42,26 @@
 
 <script>
 
-import navbar from '@/components/NavbarComponent.vue'
-export default {
-  data: function () {
-    return {
-      NumberBoard: 1,
-      Board: []
-    }
-  },
-  components: {
-    navbar
-  },
-  methods: {
-    CreateBoard () {
-      this.Board.push(this.NumberBoard)
+  import navbar from '@/components/NavbarComponent.vue'
+  export default {
+    components: {
+      navbar
     },
-    CreateParty () {
-      this.$store.dispatch('Createparty')
+    data: function () {
+      return {
+        NumberBoard: 1,
+        Board: []
+      }
+    },
+    methods: {
+      CreateBoard () {
+        this.Board.push(this.NumberBoard)
+      },
+      CreateParty () {
+        this.$store.dispatch('Createparty')
+      }
     }
   }
-}
 </script>
 
 <style scoped>

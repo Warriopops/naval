@@ -37,8 +37,18 @@ export default createStore({
       state.partyLoaded = true
     },
     gameinformation(state, reponse) {
+      state.gamesinfosloaded = false
       state.gamesInfos = reponse
       state.gamesinfosloaded = true
+    },
+    gameinformationfalse(state) {
+      state.gamesinfosloaded = false
+      state.gamesInfos = "Vous n'avez pas accès à cette partie"
+      state.gamesinfosloaded = true
+    },
+    mygame(state, reponse) {
+      state.myGames = reponse
+
     }
   },
   actions: {
@@ -59,21 +69,20 @@ export default createStore({
         login: identifiants.login,
         password: identifiants.password
       }).then((reponse) => {
-        console.log(reponse)
         const token = reponse.data
         context.commit('LoginSuccess', token)
         context.dispatch('save')
       }).catch((erreur) => {
-        console.log(erreur)
         context.commit('LoginFail', identifiants)
       })
     },
-    Mygames({ state }) {
+    Mygames({ state, commit }) {
       const token = state.identifiants.access_token.access_token
       axios.get('https://naval.laize.pro/board/mygames', {
         headers: { Authorization: `bearer ${token}` }
-      }).then((response) => {
-        state.myGames = response.data
+      }).then((reponse) => {
+        console.log(reponse.data)
+        commit('mygame', reponse.data)
       }).catch((error) => { console.log(error) })
     },
     Createparty({ state }) {
@@ -114,19 +123,23 @@ export default createStore({
           context.commit('partyloaded', reponse.data)
         })
     },
-    gameinfo({ state }, context) {
+    gameinfo({ state, commit }) {
+      state.gamesInfos = ""
       const url = window.location.href
       const boardId = url.substring(url.lastIndexOf('board') + 6)
       const token = state.identifiants.access_token.access_token
-      console.log('token', token)
-      console.log('boardi', boardId)
+      console.log(url)
+      console.log('https://naval.laize.pro/board/' + boardId)
+      console.log(token)
       axios
         .get('https://naval.laize.pro/board/' + boardId, {
           headers: { Authorization: `bearer ${token}` }
         })
         .then((reponse) => {
-          console.log('reponse', reponse)
-          context.commit('gameinformation', reponse.data)
+          commit('gameinformation', reponse.data)
+        }).catch((reponse) => {
+          console.log('test', reponse)
+          commit('gameinformationfalse', reponse.data)
         })
     }
     // getParties() {
@@ -147,14 +160,17 @@ export default createStore({
   }
 })
 
-// FAIS
-// FORMULAIRE AVEC LA TOUCHE ENTRER
-// CORRIGER CURSEUR AU CLIC METTRE PARTOUT
-// TOGGLE SERT A QUOI ? ( LE TOGGLE SERT A FERMER LE FORMULAIRE SE CONNECTER DANS LE HOME PAGE)
-// CORRIGER LE PLATEAUX
-// SE RENSEIGNER SUR LES MAPSTATE ET LES APPLIQUER A LA PLACE DES STATES
-// SAUVEGARDER LE STORE DANS LE LOCALSTORAGE et récuperer ( LOADING ET SAVE + LOADING DANS APP AVEC MOUNTED)
-// MODIFIER GAMEINFOS
+//FAIS
+
 
 // A FAIRE
-// CORRIGER LINTER
+// CHANGER GAMESINFOS ( ca envoie le board AVANT de rejoindre)
+// CHANGEZ LES BOUTONS EN DUR DANS LE LOBBY ET EN FAIRE DES COMPONENTS
+// CHANGEZ MYGAMES ET FAIRE COMME LE LOBBY
+// QUAND JE REGARDE LE BOARD OU CA FAIS ERREUR 403 AFFICHE UNE ERREUR EN DISANT QUE JE NAI PAS ACCES A CETTE PARTIE
+// CHANGER TOGGLE CONNECT EN PROPS AU LIEU D UTILISER LE STORE
+// FAIRE DU MENAGE DANS LE STORE
+// CORRIGER LE PLATEAUX EN 2 V-FOR AU LIEU DU WHILE
+// MEILLEUR CREATIONS DE BATEAUX, AVOIR UNE LISTE DE BATEAUX AVEC CREER, AJOUTER ET MODIFIER
+// CREATIONS DE BATEAUX AVEC /POST BOARD ( SHIPS = LISTE DE BATEAUX)
+// PLACEMENT DE BATEAUX

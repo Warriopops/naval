@@ -1,6 +1,5 @@
-
 <template>
-  <div class="formulaire">
+  <div v-if="toggle" class="formulaire">
     <h1>{{ title }}</h1>
     <div class="formulaire-container">
       <h1>{{ title }}</h1>
@@ -10,18 +9,18 @@
       <div class="identifiant-container">
         <div class="identifiant">
           <input
-            type="text"
             id="pseudo"
-            placeholder="Pseudo"
             v-model="pseudo"
+            type="text"
+            placeholder="Pseudo"
           >
         </div>
         <div class="identifiant">
           <input
-            type="text"
             id="password"
-            placeholder="Mot de passe"
             v-model="password"
+            type="text"
+            placeholder="Mot de passe"
             @keyup.enter="submitForm"
           >
         </div>
@@ -40,39 +39,40 @@
 
 <script>
 
-export default {
-  emit: ['onSubmit'],
-  components: {
-  },
-  props: {
-    title: String,
-    img: String,
-    msg: String,
-    buttonTitle: String
-  },
-  data () {
-    return {
-      id: 0,
-      pseudo: '',
-      password: ''
-    }
-  },
-  mounted () {
-  },
-  methods: {
-    submitForm () {
-      if (this.pseudo !== '' && this.password !== '') {
-        // eslint-disable-next-line vue/require-explicit-emits
-        this.$emit('submit', this.pseudo, this.password)
-        this.pseudo = ''
-        this.password = ''
+  export default {
+    emit: ['onSubmit'],
+    components: {
+    },
+    props: {
+      title: String,
+      img: String,
+      msg: String,
+      toggle:{
+        type: Boolean,
+        required: true
       }
     },
-    close () {
-      this.$store.state.toggle_connect = false
+    data () {
+      return {
+        id: 0,
+        pseudo: '',
+        password: '',
+        buttonTitle: 'Se connecter'
+      }
+    },
+    mounted () {
+    },
+    methods: {
+      submitForm () {
+        if (this.pseudo !== '' && this.password !== '') {
+          // eslint-disable-next-line vue/require-explicit-emits
+          this.$emit('submit', this.pseudo, this.password)
+          this.pseudo = ''
+          this.password = ''
+        }
+      },
     }
   }
-}
 </script>
 
 <style scoped>
@@ -153,4 +153,5 @@ h2{
     color:red;
     cursor:pointer
 }
+
 </style>

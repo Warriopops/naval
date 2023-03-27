@@ -4,29 +4,29 @@
     <input
       type="button"
       class="favorite styled"
-      @click="back"
       value="Retour"
+      @click="back"
     >
   </div>
 </template>
 
 <script>
-import footer2 from '@/assets/footer2.png'
+  import footer2 from '@/assets/footer2.png'
 
-export default {
-  components: {
-  },
-  data () {
-    return {
-      footer2
-    }
-  },
-  methods: {
-    back () {
-      this.$router.push('/')
+  export default {
+    components: {
+    },
+    data () {
+      return {
+        footer2
+      }
+    },
+    methods: {
+      back () {
+        this.$router.push('/')
+      }
     }
   }
-}
 </script>
 
 <style scoped>

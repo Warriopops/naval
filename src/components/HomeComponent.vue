@@ -13,20 +13,20 @@
 </template>
 
 <script>
-export default {
-  components: {
-  },
-  props: {
-    title: {
-      title: String,
-      default: null
+  export default {
+    components: {
     },
-    buttonTitle: {
-      buttonTitle: String,
-      default: null
+    props: {
+      title: {
+        title: String,
+        default: null
+      },
+      buttonTitle: {
+        buttonTitle: String,
+        default: null
+      }
     }
   }
-}
 </script>
 
 <style scoped>

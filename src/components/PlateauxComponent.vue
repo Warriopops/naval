@@ -1,38 +1,38 @@
 <template>
   <div
-    class="plateau"
     id="plateau"
+    class="plateau"
   />
 </template>
 
 <script>
-export default {
-  emit: ['onSubmit'],
-  components: {
-  },
-  props: {
-  },
-  data () {
-    return {
-      hauteur: 3,
-      largeur: 5,
-      compteur: 0
+  export default {
+    emit: ['onSubmit'],
+    components: {
+    },
+    props: {
+    },
+    data () {
+      return {
+        hauteur: 3,
+        largeur: 5,
+        compteur: 0
+      }
+    },
+    mounted () {
+      while (this.hauteur * this.largeur !== this.compteur) {
+        const els = document.createElement('div')
+        els.className = 'case'
+        const contenu = document.createTextNode(this.compteur)
+        els.appendChild(contenu)
+        document.getElementById('plateau').appendChild(els)
+        this.compteur = this.compteur + 1
+      }
+      document.documentElement.style.setProperty('--largeur', this.largeur)
+    },
+    methods: {
     }
-  },
-  mounted () {
-    while (this.hauteur * this.largeur !== this.compteur) {
-      const els = document.createElement('div')
-      els.className = 'case'
-      const contenu = document.createTextNode(this.compteur)
-      els.appendChild(contenu)
-      document.getElementById('plateau').appendChild(els)
-      this.compteur = this.compteur + 1
-    }
-    document.documentElement.style.setProperty('--largeur', this.largeur)
-  },
-  methods: {
   }
-}
 </script>
 
 <style>

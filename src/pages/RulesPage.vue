@@ -16,6 +16,17 @@
   </div>
 </template>
 
+<script>
+
+  import navbar from '@/components/NavbarComponent.vue'
+
+  export default {
+    components: {
+      navbar
+    }
+  }
+</script>
+
 <style scoped>
 .container h2{
     width:700px;
@@ -27,14 +38,3 @@
     margin-bottom:30px
 }
 </style>
-
-<script>
-
-import navbar from '@/components/NavbarComponent.vue'
-
-export default {
-  components: {
-    navbar
-  }
-}
-</script>

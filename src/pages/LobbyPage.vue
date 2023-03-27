@@ -4,10 +4,10 @@
       volume="0.2"
       loop="true"
     >
-      <source
-        src="@/assets/musique.mp3"
-        type="audio/mpeg"
-      >
+              <source
+                src="@/assets/musique.mp3"
+                type="audio/mpeg"
+              >
       <source
         src="@/assets/musique.mp3"
         type="audio/wav"
@@ -23,10 +23,10 @@
       </div>
       <h1>LOBBY</h1>
       <input
-        @click="Createparty"
         type="button"
         class="favorite styled"
         value="Créer une partie"
+        @click="Createparty"
       >
     </div>
     <navbar />
@@ -38,8 +38,8 @@
       <h2>BOUTTON</h2>
     </div>
     <div
-      class="loading"
       v-if="partyLoaded == false"
+      class="loading"
     >
       <h2>CHARGEMENT DES LOBBYS</h2>
       <div class="half-circle-spinner">
@@ -48,9 +48,9 @@
       </div>
     </div>
     <div
-      class="testo"
-      :key="index"
       v-for="(list, index) in listeOrdered"
+      :key="index"
+      class="testo"
     >
       <div v-if=" index < limite">
         <div
@@ -65,8 +65,8 @@
             <input
               type="button"
               class="join"
-              @click="join(index)"
               value="REJOINDRE"
+              @click="join(index)"
             >
           </router-link>
         </div>
@@ -85,30 +85,30 @@
     <input
       type="button"
       class="favorite styled"
-      @click="back"
       value="Retour"
+      @click="back"
     >
     <input
       type="button"
       class="favorite styled"
-      @click="audio()"
       value="Match Précedent"
+      @click="audio()"
+    >
+    <input
+        type="button"
+        class="favorite styled"
+        value="Match Suivant"
+        @click="audio"
     >
     <input
       type="button"
       class="favorite styled"
-      @click="audio"
-      value="Match Suivant"
-    >
-    <input
-      type="button"
-      class="favorite styled"
-      @click="refresh"
       value="Raffraichir"
+      @click="refresh"
     >
     <audio
-      preload="metadata"
       id="your-audio"
+      preload="metadata"
     >
       <source
         src="@/assets/cloche.mp3"
@@ -127,68 +127,68 @@
 </template>
 
 <script>
-import footer2 from '@/assets/footer2.png'
-import navbar from '@/components/NavbarComponent.vue'
-import { mapState } from 'vuex'
+  import footer2 from '@/assets/footer2.png'
+  import navbar from '@/components/NavbarComponent.vue'
+  import { mapState } from 'vuex'
 
-export default {
+  export default {
 
-  components: {
-    navbar
-  },
-  data () {
-    return {
-      limite: 30,
-      footer2,
-      list: [],
-      sortBy: 'board_status',
-      sortDirection: 'asc'
-    }
-  },
-  mounted () {
-    this.$store.dispatch('loadingparty')
-  },
-  computed: {
-    ...mapState({
-      gamesLobby: 'gamesLobby',
-      partyLoaded: 'partyLoaded'
-    }),
-    listeOrdered () {
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      return this.gamesLobby.sort((p2, p1) => {
-        let modifier = 1
-        if (this.sortDirection === 'desc') modifier = -1
-        if (p1[this.sortBy] < p2[this.sortBy]) return -1 * modifier
-        if (p1[this.sortBy] > p2[this.sortBy]) return 1 * modifier
-        this.list = this.gamesLobby
-        return 0
-      })
-    }
-  },
-  methods: {
-    refresh () {
-      const yourAudio = document.getElementById('your-audio')
-      yourAudio.play()
-      location.reload()
+    components: {
+      navbar
     },
-    back () {
-      const yourAudio = document.getElementById('your-audio')
-      yourAudio.play()
-      this.$router.push('/')
+    data () {
+      return {
+        limite: 30,
+        footer2,
+        list: [],
+        sortBy: 'board_status',
+        sortDirection: 'asc'
+      }
     },
-    audio () {
-      const yourAudio = document.getElementById('your-audio')
-      yourAudio.play()
+    mounted () {
+      this.$store.dispatch('loadingparty')
     },
-    join (index) {
-      const list = this.list[index]
-      this.$store.dispatch('join', list)
+    computed: {
+      ...mapState({
+        gamesLobby: 'gamesLobby',
+        partyLoaded: 'partyLoaded'
+      }),
+      listeOrdered () {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        return this.gamesLobby.sort((p2, p1) => {
+          let modifier = 1
+          if (this.sortDirection === 'desc') modifier = -1
+          if (p1[this.sortBy] < p2[this.sortBy]) return -1 * modifier
+          if (p1[this.sortBy] > p2[this.sortBy]) return 1 * modifier
+          this.list = this.gamesLobby
+          return 0
+        })
+      }
     },
-    Createparty () {
-      this.$router.push('/createparty')
+    methods: {
+      refresh () {
+        const yourAudio = document.getElementById('your-audio')
+        yourAudio.play()
+        location.reload()
+      },
+      back () {
+        const yourAudio = document.getElementById('your-audio')
+        yourAudio.play()
+        this.$router.push('/')
+      },
+      audio () {
+        const yourAudio = document.getElementById('your-audio')
+        yourAudio.play()
+      },
+      join (index) {
+        const list = this.list[index]
+        this.$store.dispatch('join', list)
+      },
+      Createparty () {
+        this.$router.push('/createparty')
+      }
     }
   }
-}
 </script>
 <style scoped>
     @import url('https://fonts.cdnfonts.com/css/pirate-ship');

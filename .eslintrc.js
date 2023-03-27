@@ -5,20 +5,25 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'plugin:vue/vue3-essential',
-    'plugin:vue/vue3-strongly-recommended'
+    'plugin:vue/vue3-recommended',
+    'prettier'
   ],
   parserOptions: {
-    ecmaVersion: 12,
-    parser: '@typescript-eslint/parser'
+    ecmaVersion: 2020,
+    parser: '@typescript-eslint/parser',
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   plugins: [
     'vue',
     '@typescript-eslint'
   ],
   rules: {
+    "vue/script-indent": ["warn", 2, { "baseIndent": 1 }],
     "vue/require-default-prop": "off",
     "vue/require-prop-types": "off",
-    "vue/no-template-shadow": "off"
+    "vue/no-template-shadow": "off",
+    "vue/order-in-components": "off"
   }
 }

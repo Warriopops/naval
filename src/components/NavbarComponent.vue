@@ -4,13 +4,13 @@
       Acceuil
     </h1>
     <h1
-      v-if="this.identifiants.connected === true"
+      v-if="identifiants.connected === true"
       @click="lobby"
     >
       Lobby
     </h1>
     <h1
-      v-if="this.identifiants.connected === true"
+      v-if="identifiants.connected === true"
       @click="mygames"
     >
       Mes Parties
@@ -24,45 +24,45 @@
 </template>
 
 <script>
-import footer2 from '@/assets/footer2.png'
-import footer from '@/assets/footer.png'
-import body from '@/assets/body.png'
-import { mapState } from 'vuex'
+  import footer2 from '@/assets/footer2.png'
+  import footer from '@/assets/footer.png'
+  import body from '@/assets/body.png'
+  import { mapState } from 'vuex'
 
-export default {
-  components: {
-  },
-  data () {
-    return {
-      token: '',
-      footer2,
-      footer,
-      body
-    }
-  },
-  computed: {
-    ...mapState({
-      identifiants: 'identifiants'
-    }),
-    pseudo () {
-      return this.$store.state.identifiants.login
-    }
-  },
-  methods: {
-    lobby () {
-      this.$router.push('/dashboard')
+  export default {
+    components: {
     },
-    acceuil () {
-      this.$router.push('/')
+    data () {
+      return {
+        token: '',
+        footer2,
+        footer,
+        body
+      }
     },
-    mygames () {
-      this.$router.push('/mygames')
+    computed: {
+      ...mapState({
+        identifiants: 'identifiants'
+      }),
+      pseudo () {
+        return this.$store.state.identifiants.login
+      }
     },
-    rules () {
-      this.$router.push('rules')
+    methods: {
+      lobby () {
+        this.$router.push('/dashboard')
+      },
+      acceuil () {
+        this.$router.push('/')
+      },
+      mygames () {
+        this.$router.push('/mygames')
+      },
+      rules () {
+        this.$router.push('rules')
+      }
     }
   }
-}
 </script>
 
 <style scoped>

@@ -4,47 +4,47 @@
       INFOS DE LA PARTIE :
     </h1>
     <div v-if="gamesinfosloaded == false">
-      {{ gamesInfos }}
+      <h1>CHARGEMENT</h1>
     </div>
     {{ gamesInfos }}
     <div>
       <input
         type="button"
-        @click="reload"
         value="RAFFRAICHIR LA PAGE"
+        @click="reload"
       >
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-export default {
+  import { mapState } from 'vuex'
+  export default {
 
-  data: function () {
-    return {
-      url: null,
-      boardId: null,
-      gameInfo: '',
-      index: 0
-    }
-  },
-  methods: {
-    urlFunction () {
-      this.$store.dispatch('gameinfo')
+    data: function () {
+      return {
+        url: null,
+        boardId: null,
+        gameInfo: '',
+        index: 0,
+      }
     },
-    reload () {
-      location.reload()
+    mounted () {
+      this.urlFunction()
+    },
+    methods: {
+      urlFunction () {
+        this.$store.dispatch('gameinfo')
+      },
+      reload () {
+        location.reload()
+      }
+    },
+    computed: {
+      ...mapState({
+        gamesInfos: 'gamesInfos',
+        gamesinfosloaded: 'gamesinfosloaded'
+      }),
     }
-  },
-  mounted () {
-    this.urlFunction()
-  },
-  computed: {
-    ...mapState({
-      gamesInfos: 'gamesInfos',
-      gamesinfosloaded: 'gamesinfosloaded'
-    })
   }
-}
 </script>

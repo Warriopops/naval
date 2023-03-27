@@ -33,20 +33,20 @@
           v-if="identifiants.connected === false"
           type="button"
           class="favorite styled"
-          @click="formConnect()"
           value="SE CONNECTER !"
+          @click="formConnect()"
         >
         <input
           v-if="identifiants.connected === false"
           type="button"
           class="favorite styled"
-          @click="register()"
           value="REJOIGNEZ-NOUS !"
+          @click="register()"
         >
       </div>
     </div>
     <formulaire
-      v-if="toggle_connect && identifiants.connected === false"
+      :toggle="true"
       class="connect"
       msg="X"
       title="Connecte toi !"
@@ -72,9 +72,9 @@
       <h1>@Warriopops</h1>
     </div>
     <div
-      class="testo"
+      v-for="(list, index) in this.list"
       :key="index"
-      v-for="(liste, index) in this.list"
+      class="testo"
     >
       <h2>{{ list }}</h2>
     </div>
@@ -82,57 +82,57 @@
 </template>
 
 <script>
-import footer2 from '@/assets/footer2.png'
-import footer from '@/assets/footer.png'
-import body from '@/assets/body.png'
-import formulaire from '@/components/FormulaireComponent.vue'
-import navbar from '@/components/NavbarComponent.vue'
-import { mapState } from 'vuex'
+  import footer2 from '@/assets/footer2.png'
+  import footer from '@/assets/footer.png'
+  import body from '@/assets/body.png'
+  import formulaire from '@/components/FormulaireComponent.vue'
+  import navbar from '@/components/NavbarComponent.vue'
+  import { mapState } from 'vuex'
 
-export default {
-  components: {
-    formulaire,
-    navbar
-  },
-  data () {
-    return {
-      token: '',
-      footer2,
-      footer,
-      body,
-      list: [],
-      idendifiants: { login: 'test', password: 'test', token: '' }
-    }
-  },
-  computed: {
-    ...mapState({
-      identifiants: 'identifiants',
-      toggle_connect: 'toggle_connect'
-    }),
-    pseudo () {
-      return this.$store.state.identifiants.login
-    }
-  },
-  methods: {
-    login (pseudo, password) {
-      this.idendifiants.login = pseudo
-      this.idendifiants.password = password
-      this.$store.dispatch('Login', this.idendifiants)
+  export default {
+    components: {
+      formulaire,
+      navbar
     },
-    connect () {
-      this.$router.push('/connect')
+    data () {
+      return {
+        token: '',
+        footer2,
+        footer,
+        body,
+        list: [],
+        idendifiants: { login: 'test', password: 'test', token: '' }
+      }
     },
-    register () {
-      this.$router.push('/register')
+    computed: {
+      ...mapState({
+        identifiants: 'identifiants',
+        toggle_connect: 'toggle_connect'
+      }),
+      pseudo () {
+        return this.$store.state.identifiants.login
+      }
     },
-    lost () {
-      this.$router.push('/lost')
-    },
-    formConnect () {
-      this.$store.state.toggle_connect = !this.$store.state.toggle_connect
+    methods: {
+      login (pseudo, password) {
+        this.idendifiants.login = pseudo
+        this.idendifiants.password = password
+        this.$store.dispatch('Login', this.idendifiants)
+      },
+      connect () {
+        this.$router.push('/connect')
+      },
+      register () {
+        this.$router.push('/register')
+      },
+      lost () {
+        this.$router.push('/lost')
+      },
+      formConnect () {
+        this.$store.state.toggle_connect = !this.$store.state.toggle_connect
+      }
     }
   }
-}
 </script>
 
 <style scoped>

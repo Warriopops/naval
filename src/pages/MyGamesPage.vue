@@ -1,45 +1,49 @@
+<!-- eslint-disable vue/this-in-template -->
 <template>
   <div>
     <h1>MES PARTIES</h1>
     <navbar class="navbar" />
+    <h1>LOADING</h1>
     <div
-      class="container"
-      :key="index"
       v-for="(list, index) in list"
+      :key="index" class="container"
     >
+    <h1>LOADING</h1>
       <h1>LOBBY {{ index }} : </h1>
-      <h2>{{ list.host.login }} VS {{ list.guest.login }}</h2>
+      <h2>{{list.host.login }} VS {{ list.guest.login }}</h2>
     </div>
   </div>
 </template>
 <script>
 
-import navbar from '@/components/NavbarComponent.vue'
-import { mapState } from 'vuex'
-export default {
-  data: function () {
-    return {
-      list: []
+  import navbar from '@/components/NavbarComponent.vue'
+  import { mapState } from 'vuex'
+  export default {
+    components: {
+      navbar
+    },
+    data: function () {
+      return {
+        list: []
+      }
+    },
+    computed: {
+      ...mapState({
+        myGames: 'myGames'
+      })
+    },
+    mounted () {
+      this.mygames()
+    },
+    methods: {
+      mygames () {
+        console.log(this.$store.state.myGames)
+        this.$store.dispatch('Mygames')
+        this.list = this.$store.state.myGames
+        console.log(this.$store.state.myGames)
+      }
     }
-  },
-  components: {
-    navbar
-  },
-  computed: {
-    ...mapState({
-      myGames: 'myGames'
-    })
-  },
-  methods: {
-    mygames () {
-      this.$store.dispatch('Mygames')
-      this.list = this.$store.state.myGames
-    }
-  },
-  mounted () {
-    this.mygames()
   }
-}
 </script>
 
 <style scoped>

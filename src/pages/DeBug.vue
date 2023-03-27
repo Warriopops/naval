@@ -1,10 +1,10 @@
 <template>
   <div>
     <input
-      @click="resetparty"
       type="button"
       class="favorite styled"
       value="Reset Party"
+      @click="resetparty"
     >
     <input
       type="button"
@@ -16,23 +16,23 @@
 
 <script>
 
-import axios from 'axios'
-import { mapState } from 'vuex'
+  import axios from 'axios'
+  import { mapState } from 'vuex'
 
-export default {
+  export default {
 
-  methods: {
-    resetparty () {
-      axios.get('https://naval.laize.pro/reset')
+    methods: {
+      resetparty () {
+        axios.get('https://naval.laize.pro/reset')
+      },
+      save () {
+        this.$store.dispatch('save')
+      }
     },
-    save () {
-      this.$store.dispatch('save')
+    computed: {
+      ...mapState({
+        test: 'test'
+      })
     }
-  },
-  computed: {
-    ...mapState({
-      test: 'test'
-    })
   }
-}
 </script>
