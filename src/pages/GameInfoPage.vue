@@ -34,7 +34,7 @@
     },
     methods: {
       urlFunction () {
-        this.$store.dispatch('gameinfo')
+        this.$store.dispatch('getGameInfo')
       },
       reload () {
         location.reload()

@@ -3,12 +3,10 @@
   <div>
     <h1>MES PARTIES</h1>
     <navbar class="navbar" />
-    <h1>LOADING</h1>
     <div
       v-for="(list, index) in list"
       :key="index" class="container"
     >
-    <h1>LOADING</h1>
       <h1>LOBBY {{ index }} : </h1>
       <h2>{{list.host.login }} VS {{ list.guest.login }}</h2>
     </div>
@@ -38,9 +36,10 @@
     methods: {
       mygames () {
         console.log(this.$store.state.myGames)
-        this.$store.dispatch('Mygames')
-        this.list = this.$store.state.myGames
-        console.log(this.$store.state.myGames)
+        const test = this.$store.dispatch('Mygames').then(()=> {
+          this.list = this.$store.state.myGames
+          console.log(this.$store.state.myGames)
+        })
       }
     }
   }

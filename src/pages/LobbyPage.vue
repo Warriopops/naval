@@ -1,33 +1,11 @@
 <template>
   <div class="container-header">
-    <audio
-      volume="0.2"
-      loop="true"
-    >
-              <source
-                src="@/assets/musique.mp3"
-                type="audio/mpeg"
-              >
-      <source
-        src="@/assets/musique.mp3"
-        type="audio/wav"
-      >
-      <source
-        src="@/assets/musique.mp3"
-        type="audio/ogg; codecs=vorbis"
-      >
-    </audio>
     <div class="heeader">
       <div class="logo">
         <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
       </div>
       <h1>LOBBY</h1>
-      <input
-        type="button"
-        class="favorite styled"
-        value="Créer une partie"
-        @click="Createparty"
-      >
+      <buttonComponent msg="Créer une partie" @click="Createparty"></buttonComponent>
     </div>
     <navbar />
     <div class="test">
@@ -61,14 +39,9 @@
           <h3>{{ list.host.login }}</h3>
           <h3>INCONNU</h3>
           <h3>EN ATTENTE</h3>
-          <router-link :to="{ name: 'board', params: { id: list.id } }">
-            <input
-              type="button"
-              class="join"
-              value="REJOINDRE"
-              @click="join(index)"
-            >
-          </router-link>
+          <div class="buttonJoin">
+            <buttonComponent msg="REJOINDRE" @click="join(index)"></buttonComponent>
+          </div>
         </div>
         <div
           v-if="list.guest != null"
@@ -82,30 +55,12 @@
         </div>
       </div>
     </div>
-    <input
-      type="button"
-      class="favorite styled"
-      value="Retour"
-      @click="back"
-    >
-    <input
-      type="button"
-      class="favorite styled"
-      value="Match Précedent"
-      @click="audio()"
-    >
-    <input
-        type="button"
-        class="favorite styled"
-        value="Match Suivant"
-        @click="audio"
-    >
-    <input
-      type="button"
-      class="favorite styled"
-      value="Raffraichir"
-      @click="refresh"
-    >
+    <div class="button-container">
+      <buttonComponent msg="Retour" @click="back"></buttonComponent>
+      <buttonComponent msg="Match Précedent" @click="audio"></buttonComponent>
+      <buttonComponent msg="Match Suivant" @click="audio"></buttonComponent>
+      <buttonComponent msg="Raffraichir" @click="refresh"></buttonComponent>
+    </div>
     <audio
       id="your-audio"
       preload="metadata"
@@ -130,11 +85,13 @@
   import footer2 from '@/assets/footer2.png'
   import navbar from '@/components/NavbarComponent.vue'
   import { mapState } from 'vuex'
+  import buttonComponent from '@/components/ButtonComponent.vue'
 
   export default {
 
     components: {
-      navbar
+      navbar,
+      buttonComponent
     },
     data () {
       return {
@@ -182,7 +139,9 @@
       },
       join (index) {
         const list = this.list[index]
-        this.$store.dispatch('join', list)
+        const join = this.$store.dispatch('join', list).then(() => {
+          this.$router.push('/board/' + list.id)
+        })
       },
       Createparty () {
         this.$router.push('/createparty')
@@ -215,36 +174,6 @@
     }
     .container-partie h2{
       color:red;
-    }
-    .styled, .join {
-    margin-top:5px;
-    border: 0;
-    width:150px;
-    line-height: 2.5;
-    padding: 0 20px;
-    font-size: 1rem;
-    text-align: center;
-    color: #fff;
-    text-shadow: 1px 1px 1px #000;
-    border-radius: 10px;
-    background-color: rgb(169, 0, 0);
-    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
-    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
-    cursor:pointer
-    }
-    .join{
-      width:95px;
-      font-size:10px;
-      height:70%;
-      margin-top:5px;
-    }
-
-    .styled:hover , .join:hover{
-    background-color: rgba(255, 0, 0, 1);
-    }
-
-    .styled:active , .join:active{
-    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
     }
     .container-partie{
         display: grid;
@@ -347,5 +276,14 @@
       justify-content: center;
       align-items:center;
       margin-right:10px;
+    }
+    .button-container{
+      display:flex;
+      flex-direction:row;
+      height:60px;
+      justify-content: space-around
+    }
+    .buttonJoin{
+      color:blue
     }
 </style>

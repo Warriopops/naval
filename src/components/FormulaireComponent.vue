@@ -1,9 +1,9 @@
 <template>
-  <div v-if="toggle" class="formulaire">
+  <div v-if="connectformulaire" class="formulaire">
     <h1>{{ title }}</h1>
     <div class="formulaire-container">
       <h1>{{ title }}</h1>
-      <h2 @click="close">
+      <h2 @click="triggerEvent">
         {{ msg }}
       </h2>
       <div class="identifiant-container">
@@ -40,16 +40,16 @@
 <script>
 
   export default {
-    emit: ['onSubmit'],
+    emits: ['onSubmit', 'event'],
     components: {
     },
     props: {
       title: String,
       img: String,
       msg: String,
-      toggle:{
+      connectformulaire:{
         type: Boolean,
-        required: true
+        required: false,
       }
     },
     data () {
@@ -57,7 +57,7 @@
         id: 0,
         pseudo: '',
         password: '',
-        buttonTitle: 'Se connecter'
+        buttonTitle:'Se connecter',
       }
     },
     mounted () {
@@ -71,6 +71,9 @@
           this.password = ''
         }
       },
+      triggerEvent (){
+        this.$emit('event')
+      }
     }
   }
 </script>

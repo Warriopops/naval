@@ -1,22 +1,5 @@
 <template>
   <div>
-    <audio
-      volume="0.2"
-      loop="true"
-    >
-      <source
-        src="@/assets/musique.mp3"
-        type="audio/mpeg"
-      >
-      <source
-        src="@/assets/musique.mp3"
-        type="audio/wav"
-      >
-      <source
-        src="@/assets/musique.mp3"
-        type="audio/ogg; codecs=vorbis"
-      >
-    </audio>
     <div class="header-container">
       <div class="logo">
         <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
@@ -46,11 +29,13 @@
       </div>
     </div>
     <formulaire
-      :toggle="true"
+      v-if="identifiants.connected === false"
+      :connectformulaire=toggle
       class="connect"
       msg="X"
       title="Connecte toi !"
       button-title="Se connecter !"
+      @event="formConnect"
       @submit="login"
     />
     <navbar />
@@ -101,6 +86,7 @@
         footer,
         body,
         list: [],
+        toggle: false,
         idendifiants: { login: 'test', password: 'test', token: '' }
       }
     },
@@ -129,7 +115,7 @@
         this.$router.push('/lost')
       },
       formConnect () {
-        this.$store.state.toggle_connect = !this.$store.state.toggle_connect
+        this.toggle = !this.toggle
       }
     }
   }

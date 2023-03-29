@@ -1,8 +1,21 @@
 <template>
-  <div
-    id="plateau"
-    class="plateau"
-  />
+  <div>
+    <div class="test">
+      <div v-for="(index) in largeur + 1" :key="index">
+        <div class="case"><h1>{{ index - 1 }}</h1></div>
+      </div>
+      <div>
+      <div v-for="(index) in hauteur" :key="index">
+          <div class="case"><h1>|</h1></div>
+        </div>
+      </div>
+      <div v-for="(index) in largeur" :key="index">
+        <div v-for="(index) in hauteur" :key="index">
+          <div class="case"><h1></h1></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -16,43 +29,32 @@
       return {
         hauteur: 3,
         largeur: 5,
-        compteur: 0
+        i: 0,
+        compteur: []
       }
     },
     mounted () {
-      while (this.hauteur * this.largeur !== this.compteur) {
-        const els = document.createElement('div')
-        els.className = 'case'
-        const contenu = document.createTextNode(this.compteur)
-        els.appendChild(contenu)
-        document.getElementById('plateau').appendChild(els)
-        this.compteur = this.compteur + 1
-      }
-      document.documentElement.style.setProperty('--largeur', this.largeur)
+      document.documentElement.style.setProperty('--largeur', this.largeur + 1)
     },
     methods: {
     }
   }
 </script>
 
-<style>
+<style scoped>
 :root{
-  --largeur: 8;
+ --largeur: 6;
 }
- .plateau{
-    margin-left:550px;
-    margin-top:100px;
-    display:grid;
-    grid-template-columns: repeat(var(--largeur), 50px);
-    width:400px;
+.test{
+  display:grid;
+  grid-template-columns: repeat(var(--largeur), 60px)
 }
- .plateau .case{
-    border: 1px solid black;
-    height:45px;
-    align-self:center;
+.case{
+  background-color:grey;
+  margin-top:0px;
+  height:60px;
+  width:60px;
+  border: 1px solid black;
 }
-  .case{
-  text-align: center;
-  background-color: rgb(147, 147, 147);
-}
+
 </style>

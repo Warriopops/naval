@@ -6,7 +6,6 @@ export default createStore({
     toggle_connect: false,
     join: false,
     identifiants: { login: '', password: '*******', connected: false, access_token: '' },
-    identifiantsParty: '',
     test: 'lol',
     myGames: null,
     partyLoaded: false,
@@ -36,12 +35,14 @@ export default createStore({
       state.gamesLobby = reponse
       state.partyLoaded = true
     },
-    gameinformation(state, reponse) {
-      state.gamesinfosloaded = false
+    gameInfoLoading(state) {
+      state.gamesinfosloaded = false;
+    },
+    gameInformationSuccess(state, reponse) {
       state.gamesInfos = reponse
       state.gamesinfosloaded = true
     },
-    gameinformationfalse(state) {
+    gameInformationFailed(state) {
       state.gamesinfosloaded = false
       state.gamesInfos = "Vous n'avez pas accès à cette partie"
       state.gamesinfosloaded = true
@@ -78,12 +79,13 @@ export default createStore({
     },
     Mygames({ state, commit }) {
       const token = state.identifiants.access_token.access_token
-      axios.get('https://naval.laize.pro/board/mygames', {
+      const promesse = axios.get('https://naval.laize.pro/board/mygames', {
         headers: { Authorization: `bearer ${token}` }
       }).then((reponse) => {
         console.log(reponse.data)
         commit('mygame', reponse.data)
       }).catch((error) => { console.log(error) })
+      return promesse
     },
     Createparty({ state }) {
       const token = state.identifiants.access_token.access_token
@@ -95,15 +97,15 @@ export default createStore({
     },
     join({ state }, list) {
       const token = state.identifiants.access_token.access_token
-      state.identifiantsParty = list
-      axios.get('https://naval.laize.pro/board/' + list.id + '/join', {
+      const promesse = axios.get('https://naval.laize.pro/board/' + list.id + '/join', {
         headers: { Authorization: `bearer ${token}` }
       }).then((response) => {
         console.log(response, 'A REJOINT')
         state.join = true
       }).catch((error) => {
         console.log(error, 'COMPLET')
-      })
+      });
+      return promesse;
     },
     register(state, identifiants) {
       console.log(state)
@@ -123,23 +125,19 @@ export default createStore({
           context.commit('partyloaded', reponse.data)
         })
     },
-    gameinfo({ state, commit }) {
-      state.gamesInfos = ""
+    getGameInfo({ state, commit }) {
       const url = window.location.href
       const boardId = url.substring(url.lastIndexOf('board') + 6)
       const token = state.identifiants.access_token.access_token
-      console.log(url)
-      console.log('https://naval.laize.pro/board/' + boardId)
-      console.log(token)
+      commit('gameInfoLoading');
       axios
         .get('https://naval.laize.pro/board/' + boardId, {
           headers: { Authorization: `bearer ${token}` }
         })
         .then((reponse) => {
-          commit('gameinformation', reponse.data)
+          commit('gameInformationSuccess', reponse.data)
         }).catch((reponse) => {
-          console.log('test', reponse)
-          commit('gameinformationfalse', reponse.data)
+          commit('gameInformationFailed', reponse.data)
         })
     }
     // getParties() {
@@ -161,14 +159,14 @@ export default createStore({
 })
 
 //FAIS
-
+// CHANGER TOGGLE CONNECT EN PROPS AU LIEU D UTILISER LE STORE
+// MYGAMES SE CHARGE
+// CHANGER GAMESINFOS ( ca envoie le board AVANT de rejoindre)
 
 // A FAIRE
-// CHANGER GAMESINFOS ( ca envoie le board AVANT de rejoindre)
 // CHANGEZ LES BOUTONS EN DUR DANS LE LOBBY ET EN FAIRE DES COMPONENTS
 // CHANGEZ MYGAMES ET FAIRE COMME LE LOBBY
 // QUAND JE REGARDE LE BOARD OU CA FAIS ERREUR 403 AFFICHE UNE ERREUR EN DISANT QUE JE NAI PAS ACCES A CETTE PARTIE
-// CHANGER TOGGLE CONNECT EN PROPS AU LIEU D UTILISER LE STORE
 // FAIRE DU MENAGE DANS LE STORE
 // CORRIGER LE PLATEAUX EN 2 V-FOR AU LIEU DU WHILE
 // MEILLEUR CREATIONS DE BATEAUX, AVOIR UNE LISTE DE BATEAUX AVEC CREER, AJOUTER ET MODIFIER
