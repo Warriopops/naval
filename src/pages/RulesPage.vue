@@ -1,7 +1,7 @@
 <template>
   <div class="container">
+    <h1>regles du jeu</h1>
     <navbar class="navbar" />
-    <h1>REGLES DU JEU</h1>
     <h2>
       Peu importe la version de bataille navale que vous avez, dans ce type de jeux, deux joueurs s'affrontent sur une grille de 10 × 10 cases.
       Le joueur qui détruit la totalité de la flotte de son adversaire remporte la partie de jeux. Une fois que les navires sont positionnés au hasard,
@@ -36,5 +36,12 @@
 .navbar{
     margin-top:10px;
     margin-bottom:30px
+}
+h1{
+  color:white;
+  text-decoration:underline;
+  font-size:30px;
+  margin-bottom:30px;
+  height:20px;
 }
 </style>

@@ -3,7 +3,7 @@
     <h1 @click="urlFunction">
       INFOS DE LA PARTIE :
     </h1>
-    <div v-if="gamesinfosloaded == false">
+    <div v-if="gamesInfosLoaded == false">
       <h1>CHARGEMENT</h1>
     </div>
     {{ gamesInfos }}
@@ -43,7 +43,7 @@
     computed: {
       ...mapState({
         gamesInfos: 'gamesInfos',
-        gamesinfosloaded: 'gamesinfosloaded'
+        gamesInfosLoaded: 'gamesInfosLoaded'
       }),
     }
   }

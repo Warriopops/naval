@@ -3,7 +3,6 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    toggle_connect: false,
     join: false,
     identifiants: { login: '', password: '*******', connected: false, access_token: '' },
     test: 'lol',
@@ -11,43 +10,43 @@ export default createStore({
     partyLoaded: false,
     gamesLobby: [],
     gamesInfos: null,
-    gamesinfosloaded: false
+    gamesInfosLoaded: false
   },
   getters: {
   },
   mutations: {
     // loadToState(state, storeSaved) {
 
-    LoginSuccess(state, token) {
+    loginSuccess(state, token) {
       state.identifiants.connected = true
       state.identifiants.access_token = token
     },
-    LoginFail(state) {
+    loginFail(state) {
       state.identifiants.connected = false
     },
-    Login(state, identifiants) {
+    login(state, identifiants) {
       state.identifiants.login = identifiants.login
     },
-    Load_data(state, data) {
+    loadData(state, data) {
       state.identifiants = data
     },
-    partyloaded(state, reponse) {
+    partyLoaded(state, reponse) {
       state.gamesLobby = reponse
       state.partyLoaded = true
     },
     gameInfoLoading(state) {
-      state.gamesinfosloaded = false;
+      state.gamesInfosLoaded = false;
     },
     gameInformationSuccess(state, reponse) {
       state.gamesInfos = reponse
-      state.gamesinfosloaded = true
+      state.gamesInfosLoaded = true
     },
     gameInformationFailed(state) {
-      state.gamesinfosloaded = false
+      state.gamesInfosLoaded = false
       state.gamesInfos = "Vous n'avez pas accès à cette partie"
-      state.gamesinfosloaded = true
+      state.gamesInfosLoaded = true
     },
-    mygame(state, reponse) {
+    myGame(state, reponse) {
       state.myGames = reponse
 
     }
@@ -61,33 +60,33 @@ export default createStore({
     load({ commit }) {
       if (localStorage.getItem('identifiants') !== null) {
         const data = JSON.parse(localStorage.getItem('identifiants'))
-        commit('Load_data', data)
+        commit('loadData', data)
       }
     },
-    Login(context, identifiants) {
-      context.commit('Login', identifiants)
+    login(context, identifiants) {
+      context.commit('login', identifiants)
       axios.post('https://naval.laize.pro/user/login', {
         login: identifiants.login,
         password: identifiants.password
       }).then((reponse) => {
         const token = reponse.data
-        context.commit('LoginSuccess', token)
+        context.commit('loginSuccess', token)
         context.dispatch('save')
       }).catch((erreur) => {
-        context.commit('LoginFail', identifiants)
+        context.commit('loginFail', identifiants)
       })
     },
-    Mygames({ state, commit }) {
+    myGames({ state, commit }) {
       const token = state.identifiants.access_token.access_token
       const promesse = axios.get('https://naval.laize.pro/board/mygames', {
         headers: { Authorization: `bearer ${token}` }
       }).then((reponse) => {
         console.log(reponse.data)
-        commit('mygame', reponse.data)
+        commit('myGame', reponse.data)
       }).catch((error) => { console.log(error) })
       return promesse
     },
-    Createparty({ state }) {
+    CreateParty({ state }) {
       const token = state.identifiants.access_token.access_token
       axios.get('https://naval.laize.pro/board', {
         headers: { Authorization: `bearer ${token}` }
@@ -118,11 +117,11 @@ export default createStore({
         console.log('erreur d inscription', error)
       })
     },
-    loadingparty(context) {
+    loadingParty(context) {
       axios
         .get('https://naval.laize.pro/board')
         .then((reponse) => {
-          context.commit('partyloaded', reponse.data)
+          context.commit('partyLoaded', reponse.data)
         })
     },
     getGameInfo({ state, commit }) {
@@ -139,19 +138,11 @@ export default createStore({
         }).catch((reponse) => {
           commit('gameInformationFailed', reponse.data)
         })
+    },
+    createParty(state, board) {
+      console.log(state)
+      console.log('store', board)
     }
-    // getParties() {
-    //   blabla.then(() => this.commit('parties'));
-    // },
-    // getMyParties() {
-    //   blabla.then(() => this.commit('mesPartiesEnCours'));
-    // },
-    // joinParty() {
-    //   axios.Axios('/join').then(() => {
-    //     this.commit('party');
-    //     this.dispatch('getMyParties');
-    //   })
-    // }
   },
   modules: {
 
@@ -162,13 +153,20 @@ export default createStore({
 // CHANGER TOGGLE CONNECT EN PROPS AU LIEU D UTILISER LE STORE
 // MYGAMES SE CHARGE
 // CHANGER GAMESINFOS ( ca envoie le board AVANT de rejoindre)
+// CHANGEZ LES BOUTONS EN DUR DANS LE LOBBY ET EN FAIRE DES COMPONENTS
+// CORRIGER LE PLATEAUX EN 2 V-FOR AU LIEU DU WHILE
+// FAIRE DU MENAGE SUR LES NOMS DANS LE PLATEAU
+// FAIRE DU MENAGE DANS LE STORE
+// CHANGEZ MYGAMES ET FAIRE COMME LE LOBBY
+// MEILLEUR CREATIONS DE BATEAUX, AVOIR UNE LISTE DE BATEAUX AVEC CREER, AJOUTER ET MODIFIER
+// REGLER LE PROBLEME DE BOUTONS DANS LE LOBBY
+// CREER UN BOUTON DECONNEXION
 
 // A FAIRE
-// CHANGEZ LES BOUTONS EN DUR DANS LE LOBBY ET EN FAIRE DES COMPONENTS
-// CHANGEZ MYGAMES ET FAIRE COMME LE LOBBY
-// QUAND JE REGARDE LE BOARD OU CA FAIS ERREUR 403 AFFICHE UNE ERREUR EN DISANT QUE JE NAI PAS ACCES A CETTE PARTIE
-// FAIRE DU MENAGE DANS LE STORE
-// CORRIGER LE PLATEAUX EN 2 V-FOR AU LIEU DU WHILE
-// MEILLEUR CREATIONS DE BATEAUX, AVOIR UNE LISTE DE BATEAUX AVEC CREER, AJOUTER ET MODIFIER
 // CREATIONS DE BATEAUX AVEC /POST BOARD ( SHIPS = LISTE DE BATEAUX)
 // PLACEMENT DE BATEAUX
+
+// PAS A FAIRE
+// QUAND JE REGARDE LE BOARD OU CA FAIS ERREUR 403 AFFICHE UNE ERREUR EN DISANT QUE JE NAI PAS ACCES A CETTE PARTIE ( plus d'erreurs 403)
+
+

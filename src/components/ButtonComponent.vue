@@ -38,10 +38,11 @@
     cursor:pointer
     }
     .join{
-      width:130px;
-      font-size:13px;
+      width:100%;
+      font-size:10px;
       height:70%;
       margin-top:5px;
+      text-transform:uppercase;
     }
     .styled:hover , .join:hover{
     background-color: rgba(255, 0, 0, 1);

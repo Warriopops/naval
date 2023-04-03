@@ -53,7 +53,6 @@
         padding-bottom:20px;
         padding-left:10px;
         padding-right:10px;
-        background-image:url(assets/carte2.jpg);
         background-size:cover;
     }
     .footer{

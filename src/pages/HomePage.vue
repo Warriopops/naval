@@ -11,6 +11,7 @@
       <div>
         <h2 v-if="identifiants.connected === true">
           Pseudo : {{ pseudo }}
+          <ButtonComponent msg="déconnexion" @click="disconnect"></ButtonComponent>
         </h2>
         <input
           v-if="identifiants.connected === false"
@@ -73,11 +74,13 @@
   import formulaire from '@/components/FormulaireComponent.vue'
   import navbar from '@/components/NavbarComponent.vue'
   import { mapState } from 'vuex'
+  import ButtonComponent from '@/components/ButtonComponent.vue'
 
   export default {
     components: {
       formulaire,
-      navbar
+      navbar,
+      ButtonComponent,
     },
     data () {
       return {
@@ -92,8 +95,7 @@
     },
     computed: {
       ...mapState({
-        identifiants: 'identifiants',
-        toggle_connect: 'toggle_connect'
+        identifiants: 'identifiants'
       }),
       pseudo () {
         return this.$store.state.identifiants.login
@@ -103,7 +105,7 @@
       login (pseudo, password) {
         this.idendifiants.login = pseudo
         this.idendifiants.password = password
-        this.$store.dispatch('Login', this.idendifiants)
+        this.$store.dispatch('login', this.idendifiants)
       },
       connect () {
         this.$router.push('/connect')
@@ -116,6 +118,10 @@
       },
       formConnect () {
         this.toggle = !this.toggle
+      },
+      disconnect (){
+        localStorage.clear('identifiants')
+        location.reload()
       }
     }
   }

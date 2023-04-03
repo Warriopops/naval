@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="test">
+    <div class="plateau">
       <div v-for="(index) in largeur + 1" :key="index">
         <div class="case"><h1>{{ index - 1 }}</h1></div>
       </div>
@@ -45,9 +45,11 @@
 :root{
  --largeur: 6;
 }
-.test{
+.plateau{
   display:grid;
-  grid-template-columns: repeat(var(--largeur), 60px)
+  grid-template-columns: repeat(var(--largeur), 60px);
+  margin-left:600px;
+  margin-top:200px
 }
 .case{
   background-color:grey;

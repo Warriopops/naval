@@ -61,7 +61,7 @@ const routes = [
   },
   {
     name: 'mygames',
-    path: '/Mygames',
+    path: '/mygames',
     component: Mygames
   },
   {

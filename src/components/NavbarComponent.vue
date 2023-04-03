@@ -11,7 +11,7 @@
     </h1>
     <h1
       v-if="identifiants.connected === true"
-      @click="mygames"
+      @click="myGames"
     >
       Mes Parties
     </h1>
@@ -55,7 +55,7 @@
       acceuil () {
         this.$router.push('/')
       },
-      mygames () {
+      myGames () {
         this.$router.push('/mygames')
       },
       rules () {
@@ -81,6 +81,6 @@
         height: 60px;
         align-items: center;
         justify-content: space-around;
-        width: 100%
+        width: 100%;
     }
 </style>

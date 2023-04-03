@@ -5,9 +5,16 @@
         <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
       </div>
       <h1>LOBBY</h1>
-      <buttonComponent msg="Créer une partie" @click="Createparty"></buttonComponent>
+      <div class="logo">
+        <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
+      </div>
     </div>
-    <navbar />
+    <div class="navbar">
+      <navbar/>
+    </div>
+    <div class="createParty">
+      <buttonComponent msg="Créer une partie" @click="createParty"></buttonComponent>
+    </div>
     <div class="test">
       <h2>LOBBY</h2>
       <h2>HOTE</h2>
@@ -40,7 +47,7 @@
           <h3>INCONNU</h3>
           <h3>EN ATTENTE</h3>
           <div class="buttonJoin">
-            <buttonComponent msg="REJOINDRE" @click="join(index)"></buttonComponent>
+            <buttonComponent msg="Rejoindre" class="componentJoinParty" @click="join(index)"></buttonComponent>
           </div>
         </div>
         <div
@@ -103,7 +110,7 @@
       }
     },
     mounted () {
-      this.$store.dispatch('loadingparty')
+      this.$store.dispatch('loadingParty')
     },
     computed: {
       ...mapState({
@@ -143,7 +150,7 @@
           this.$router.push('/board/' + list.id)
         })
       },
-      Createparty () {
+      createParty () {
         this.$router.push('/createparty')
       }
     }
@@ -159,18 +166,11 @@
         height:20px;
     }
     .container-header{
-      margin:5%;
-        width: 90%;
         height:90%;
-        -webkit-box-shadow: 0px 0px 25px 10px rgba(0,0,255,0.77);
-        -moz-box-shadow: 0px 0px 25px 10px rgba(0,0,255,0.77);
-        box-shadow: 0px 0px 25px 10px rgba(0,0,255,0.77);
-        padding-top:2px;
-        padding-bottom:20px;
-        padding-left:10px;
-        padding-right:10px;
-        background-image:url(@/assets/carte2.jpg);
+        width:100%;
+        margin-top:5px;
         background-size:cover;
+        padding-left:0px;
     }
     .container-partie h2{
       color:red;
@@ -281,9 +281,20 @@
       display:flex;
       flex-direction:row;
       height:60px;
-      justify-content: space-around
+      justify-content: space-around;
+      background-color:grey;
+      border: 1px solid #000000;
+      width:1458px;
+      margin-left:30px;
     }
-    .buttonJoin{
-      color:blue
+    .navbar{
+      margin-top:20px;
+      margin-bottom:10px;
+    }
+    .createParty{
+      margin-bottom:10px;
+    }
+    .componentJoinParty{
+      height:50px;
     }
 </style>
