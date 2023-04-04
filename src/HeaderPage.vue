@@ -40,7 +40,6 @@
         height:125px;
         background-size:cover;
         border-radius:5px 5px 5px 5px;
-        background-image:url(assets/header.jpg);
         width:600px;
         height:125px;
         margin-left:0px;
@@ -58,12 +57,6 @@
     .footer{
         width: 50px;
         height: 50px;
-    }
-    .connecter{
-        background-image:url(./assets/footer.png);
-    }
-    .mdp{
-        background-image:url(./assets/footer2.png);
     }
     html{
     background-image: url(assets/home.jpg);

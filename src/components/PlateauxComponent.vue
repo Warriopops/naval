@@ -11,7 +11,7 @@
       </div>
       <div v-for="(index) in largeur" :key="index">
         <div v-for="(index) in hauteur" :key="index">
-          <div class="case"><h1></h1></div>
+          <div :id="`index`" class="case"><h1></h1></div>
         </div>
       </div>
     </div>
@@ -37,6 +37,12 @@
       document.documentElement.style.setProperty('--largeur', this.largeur + 1)
     },
     methods: {
+      getPositionById(id) {
+        return {x: 0, y: 0}
+      },
+      getIdByPositionb(x, y) {
+        return 12;
+      }
     }
   }
 </script>

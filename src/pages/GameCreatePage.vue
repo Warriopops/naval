@@ -1,5 +1,5 @@
 <template>
-  <div class="container-header">
+  <div class="All">
     <h2>Creation de partie</h2>
     <div class="navbar">
       <navbar />
@@ -29,7 +29,7 @@
       </option>
     </select>
     <div>
-      <buttonComponent class="componentCreateBoard" msg="Créer un bateau" @click="CreateBoard"></buttonComponent>
+      <buttonComponent class="componentCreateBoard" title="Créer un bateau" @click="CreateBoard"></buttonComponent>
     </div>
     </div>
     <div class="infos">
@@ -70,12 +70,12 @@
     </select>
       </div>
       <h1 v-if="Board.edit == true">{{ Board.taille }}</h1>
-      <buttonComponent v-if="Board.edit == true" msg="Modifier" class="componentEditBoard" @click="changeBoard(index)"></buttonComponent>
-      <buttonComponent v-if="Board.edit == false" msg="Confirmer" class="componentConfirmBoard" @click="confirmBoard(index)"></buttonComponent>
-      <buttonComponent msg="Supprimer" class="componentDeleteBoard" @click="deleteBoard(index)"></buttonComponent>
+      <buttonComponent v-if="Board.edit == true" title="Modifier" class="componentEditBoard" @click="changeBoard(index)"></buttonComponent>
+      <buttonComponent v-if="Board.edit == false" title="Confirmer" class="componentConfirmBoard" @click="confirmBoard(index)"></buttonComponent>
+      <buttonComponent title="Supprimer" class="componentDeleteBoard" @click="deleteBoard(index)"></buttonComponent>
     </div>
     <div class="createGame">
-      <buttonComponent msg="Créer une partie" @click="CreateParty"></buttonComponent> 
+      <buttonComponent title="Créer une partie" @click="CreateParty"></buttonComponent> 
     </div>    
     </div>
   </div>
@@ -124,7 +124,7 @@
 </script>
 
 <style scoped>
-    .container-header{
+    .All{
         width: 100%;
         padding-top:2px;
         background-size:cover;

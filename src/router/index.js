@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/HomePage.vue'
-import Register from '@/components/RegisterComponent.vue'
 import NotFound from '@/pages/NotFoundPage.vue'
 import Lobby from '@/pages/LobbyPage.vue'
 import Testhome from '@/HeaderPage.vue'
@@ -12,17 +11,13 @@ import Plateaux from '@/components/PlateauxComponent.vue'
 import Mygames from '@/pages/MyGamesPage.vue'
 import Rules from '@/pages/RulesPage.vue'
 import Button from '@/components/ButtonComponent.vue'
+import Register from '@/pages/RegisterPage.vue'
 
 const routes = [
   {
     name: 'Home',
     path: '/',
     component: Home
-  },
-  {
-    name: 'Register',
-    path: '/register',
-    component: Register
   },
   {
     name: 'NotFound',
@@ -73,6 +68,11 @@ const routes = [
     name: 'button',
     path: '/button',
     component: Button
+  },
+  {
+    name: 'register',
+    path: '/register',
+    component: Register
   }
 ]
 

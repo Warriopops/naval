@@ -3,7 +3,7 @@
         <input
             type="button"
             class="join"
-            :value=msg
+            :value=title
           >
     </div>
 </template>
@@ -11,7 +11,7 @@
 <script>
   export default {
     props: {
-      msg: String,
+      title: String,
     },
     data () {
       return {

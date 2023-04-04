@@ -3,8 +3,8 @@
     <h1>{{ title }}</h1>
     <div class="formulaire-container">
       <h1>{{ title }}</h1>
-      <h2 @click="triggerEvent">
-        {{ msg }}
+      <h2 @click="closeConnect">
+        X
       </h2>
       <div class="identifiant-container">
         <div class="identifiant">
@@ -28,7 +28,7 @@
       <div class="formulaire-button">
         <input
           type="button"
-          :value="buttonTitle"
+          value="Se connecter"
           class="favorite styled"
           @click="submitForm"
         >
@@ -40,13 +40,11 @@
 <script>
 
   export default {
-    emits: ['onSubmit', 'event'],
+    emits: ['onSubmit', 'offSubmit'],
     components: {
     },
     props: {
       title: String,
-      img: String,
-      msg: String,
       connectformulaire:{
         type: Boolean,
         required: false,
@@ -57,7 +55,6 @@
         id: 0,
         pseudo: '',
         password: '',
-        buttonTitle:'Se connecter',
       }
     },
     mounted () {
@@ -71,8 +68,8 @@
           this.password = ''
         }
       },
-      triggerEvent (){
-        this.$emit('event')
+      closeConnect (){
+        this.$emit('offSubmit')
       }
     }
   }

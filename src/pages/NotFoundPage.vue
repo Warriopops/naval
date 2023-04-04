@@ -1,5 +1,5 @@
 <template>
-  <div class="container-header">
+  <div class="header">
     <h1>PAGE NON TROUVER</h1>
     <input
       type="button"
@@ -17,7 +17,6 @@
     },
     data () {
       return {
-        footer2
       }
     },
     methods: {
@@ -35,7 +34,7 @@
         margin-top:100px;
         font-size:30px;
     }
-    .container-header{
+    .header{
         width: 600px;
         height:605px;
         -webkit-box-shadow: 0px 0px 25px 10px rgba(0,0,255,0.77);

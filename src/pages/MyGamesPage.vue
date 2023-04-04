@@ -17,7 +17,7 @@
       <h2>{{ list.guest.login }}</h2>
     </div>
     <div class="button">
-      <buttonComponent msg="RETOUR" @click="back"></buttonComponent>
+      <buttonComponent title="RETOUR" @click="back"></buttonComponent>
     </div>
   </div>
 </template>
@@ -49,7 +49,7 @@
         this.$router.push('/')
       },
       mygames () {
-        const test = this.$store.dispatch('myGames').then(()=> {
+        const list = this.$store.dispatch('myGames').then(()=> {
           this.list = this.$store.state.myGames
         })
       }

@@ -2,7 +2,7 @@
   <div>
     <div class="header-container">
       <div class="logo">
-        <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
+        <img class="img" src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
         <div class="logo-name">
           <h1>LA BATAILLE NAVALE</h1>
         </div>
@@ -11,7 +11,7 @@
       <div>
         <h2 v-if="identifiants.connected === true">
           Pseudo : {{ pseudo }}
-          <ButtonComponent msg="déconnexion" @click="disconnect"></ButtonComponent>
+          <ButtonComponent title="déconnexion" @click="disconnect"></ButtonComponent>
         </h2>
         <input
           v-if="identifiants.connected === false"
@@ -31,9 +31,8 @@
     </div>
     <formulaire
       v-if="identifiants.connected === false"
-      :connectformulaire=toggle
+      :connectformulaire=toggleConnect
       class="connect"
-      msg="X"
       title="Connecte toi !"
       button-title="Se connecter !"
       @event="formConnect"
@@ -60,7 +59,6 @@
     <div
       v-for="(list, index) in this.list"
       :key="index"
-      class="testo"
     >
       <h2>{{ list }}</h2>
     </div>
@@ -68,9 +66,6 @@
 </template>
 
 <script>
-  import footer2 from '@/assets/footer2.png'
-  import footer from '@/assets/footer.png'
-  import body from '@/assets/body.png'
   import formulaire from '@/components/FormulaireComponent.vue'
   import navbar from '@/components/NavbarComponent.vue'
   import { mapState } from 'vuex'
@@ -85,11 +80,8 @@
     data () {
       return {
         token: '',
-        footer2,
-        footer,
-        body,
         list: [],
-        toggle: false,
+        toggleConnect: false,
         idendifiants: { login: 'test', password: 'test', token: '' }
       }
     },
@@ -117,7 +109,7 @@
         this.$router.push('/lost')
       },
       formConnect () {
-        this.toggle = !this.toggle
+        this.toggleConnect = !this.toggleConnect
       },
       disconnect (){
         localStorage.clear('identifiants')
@@ -143,10 +135,6 @@
 }
 p{
     display:inline-block
-}
-img{
-    width:80px;
-    height:80px;
 }
 .logo{
     display:flex;
@@ -233,6 +221,9 @@ img{
         height:180px;
         background-size: cover;
         background-color:black;
+    }
+    .img{
+      width:60px;
     }
     .navbar-footer{
         margin-top:150px;

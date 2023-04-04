@@ -3,9 +3,8 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    join: false,
+    joinGame: false,
     identifiants: { login: '', password: '*******', connected: false, access_token: '' },
-    test: 'lol',
     myGames: null,
     partyLoaded: false,
     gamesLobby: [],
@@ -58,10 +57,11 @@ export default createStore({
       localStorage.setItem('identifiants', save)
     },
     load({ commit }) {
-      if (localStorage.getItem('identifiants') !== null) {
-        const data = JSON.parse(localStorage.getItem('identifiants'))
-        commit('loadData', data)
-      }
+      if (localStorage.getItem('identifiants') === null)
+        return;
+
+      const data = JSON.parse(localStorage.getItem('identifiants'))
+      commit('loadData', data)
     },
     login(context, identifiants) {
       context.commit('login', identifiants)
@@ -100,14 +100,14 @@ export default createStore({
         headers: { Authorization: `bearer ${token}` }
       }).then((response) => {
         console.log(response, 'A REJOINT')
-        state.join = true
+        state.joinGame = true
       }).catch((error) => {
         console.log(error, 'COMPLET')
       });
       return promesse;
     },
-    register(state, identifiants) {
-      console.log(state)
+    register(context, identifiants) {
+      console.log(context)
       axios.post('https://naval.laize.pro/user/signup', {
         login: identifiants.pseudo,
         password: identifiants.password
@@ -150,23 +150,26 @@ export default createStore({
 })
 
 //FAIS
-// CHANGER TOGGLE CONNECT EN PROPS AU LIEU D UTILISER LE STORE
-// MYGAMES SE CHARGE
-// CHANGER GAMESINFOS ( ca envoie le board AVANT de rejoindre)
-// CHANGEZ LES BOUTONS EN DUR DANS LE LOBBY ET EN FAIRE DES COMPONENTS
-// CORRIGER LE PLATEAUX EN 2 V-FOR AU LIEU DU WHILE
-// FAIRE DU MENAGE SUR LES NOMS DANS LE PLATEAU
-// FAIRE DU MENAGE DANS LE STORE
-// CHANGEZ MYGAMES ET FAIRE COMME LE LOBBY
-// MEILLEUR CREATIONS DE BATEAUX, AVOIR UNE LISTE DE BATEAUX AVEC CREER, AJOUTER ET MODIFIER
-// REGLER LE PROBLEME DE BOUTONS DANS LE LOBBY
-// CREER UN BOUTON DECONNEXION
+// FAIRE DU MENAGE DANS LE STORE et partout (props, nom de variable, event qui s'appelle event, etc.)
 
 // A FAIRE
+
+// REFAIRE UNE PAGE D'INSCRIPTION ( FINIR AVEC PROMESSE )
+
+// Plateau => Changer le for recursif par un seul v-for et compléter les deux methods
+// Plateau => au clic sur une case, afficher un console.log de la position cliqué (cliqué à x/y)
+// Creation de partie => Mettre les meme bateaux par défaut que sur le swagger ( API )
+
 // CREATIONS DE BATEAUX AVEC /POST BOARD ( SHIPS = LISTE DE BATEAUX)
+
 // PLACEMENT DE BATEAUX
 
-// PAS A FAIRE
-// QUAND JE REGARDE LE BOARD OU CA FAIS ERREUR 403 AFFICHE UNE ERREUR EN DISANT QUE JE NAI PAS ACCES A CETTE PARTIE ( plus d'erreurs 403)
+// TABLEAU  ET MYGAMES EN COMPONENT QUI DOIS PRENDRE 2 PARAMETRE( LISTE D'OBJETS & un tableau de string qui correspong aux clefs)
+  // 1/ Utiliser comme paramètre un array d'objet comme suit :
+  // [{id: "fafafa-aaaa", game_status: "blabl", user: {login: "maxoux"}}]
+  // [{label: "Id de la partie", key: "id"}, {label: "Status du Match", key: "game_status"}]
+  // 2/ LE composant doit utiliser les scope pour afficher les boutons rejoindre (Les boutons doivent etre ecris dans le parent)
+
+// DANS MYGAMES PAS DE "VOUS" mais un boutton rejoindre, pas de numéro de lobby mais une date au hasard
 
 

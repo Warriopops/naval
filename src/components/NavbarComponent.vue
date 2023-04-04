@@ -24,22 +24,9 @@
 </template>
 
 <script>
-  import footer2 from '@/assets/footer2.png'
-  import footer from '@/assets/footer.png'
-  import body from '@/assets/body.png'
   import { mapState } from 'vuex'
 
   export default {
-    components: {
-    },
-    data () {
-      return {
-        token: '',
-        footer2,
-        footer,
-        body
-      }
-    },
     computed: {
       ...mapState({
         identifiants: 'identifiants'

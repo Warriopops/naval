@@ -1,21 +1,13 @@
 <template>
   <div class="container-header">
-    <div class="heeader">
-      <div class="logo">
-        <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
-      </div>
-      <h1>LOBBY</h1>
-      <div class="logo">
-        <img src="@/assets/kisspng-pirate-ship-two-dimensional-space-animation-2d-com-pirate-5abcf8579a4816.467935311522333783632.png">
-      </div>
-    </div>
+    <h1>LOBBY</h1>
     <div class="navbar">
       <navbar/>
     </div>
     <div class="createParty">
-      <buttonComponent msg="Créer une partie" @click="createParty"></buttonComponent>
+      <buttonComponent title="Créer une partie" @click="createParty"></buttonComponent>
     </div>
-    <div class="test">
+    <div class="infosParty">
       <h2>LOBBY</h2>
       <h2>HOTE</h2>
       <h2>JOUEUR</h2>
@@ -35,24 +27,23 @@
     <div
       v-for="(list, index) in listeOrdered"
       :key="index"
-      class="testo"
     >
       <div v-if=" index < limite">
         <div
           v-if="list.guest == null"
-          class="container-partie"
+          class="gamesInfo"
         >
           <h3>{{ index }}</h3>
           <h3>{{ list.host.login }}</h3>
           <h3>INCONNU</h3>
           <h3>EN ATTENTE</h3>
           <div class="buttonJoin">
-            <buttonComponent msg="Rejoindre" class="componentJoinParty" @click="join(index)"></buttonComponent>
+            <buttonComponent title="Rejoindre" class="componentJoinParty" @click="join(index)"></buttonComponent>
           </div>
         </div>
         <div
           v-if="list.guest != null"
-          class="container-partie"
+          class="gamesInfo"
         >
           <h3>{{ index }}</h3>
           <h3>{{ list.host.login }}</h3>
@@ -63,10 +54,10 @@
       </div>
     </div>
     <div class="button-container">
-      <buttonComponent msg="Retour" @click="back"></buttonComponent>
-      <buttonComponent msg="Match Précedent" @click="audio"></buttonComponent>
-      <buttonComponent msg="Match Suivant" @click="audio"></buttonComponent>
-      <buttonComponent msg="Raffraichir" @click="refresh"></buttonComponent>
+      <buttonComponent title="Retour" @click="back"></buttonComponent>
+      <buttonComponent title="Match Précedent" @click="audio"></buttonComponent>
+      <buttonComponent title="Match Suivant" @click="audio"></buttonComponent>
+      <buttonComponent title="Raffraichir" @click="refresh"></buttonComponent>
     </div>
     <audio
       id="your-audio"
@@ -89,7 +80,6 @@
 </template>
 
 <script>
-  import footer2 from '@/assets/footer2.png'
   import navbar from '@/components/NavbarComponent.vue'
   import { mapState } from 'vuex'
   import buttonComponent from '@/components/ButtonComponent.vue'
@@ -103,7 +93,6 @@
     data () {
       return {
         limite: 30,
-        footer2,
         list: [],
         sortBy: 'board_status',
         sortDirection: 'asc'
@@ -168,14 +157,14 @@
     .container-header{
         height:90%;
         width:100%;
-        margin-top:5px;
+        margin-top:0px;
         background-size:cover;
         padding-left:0px;
     }
-    .container-partie h2{
+    .gamesInfo h2{
       color:red;
     }
-    .container-partie{
+    .gamesInfo{
         display: grid;
         grid-template-columns: repeat(5, 100px);
         justify-content: space-between;
@@ -188,7 +177,7 @@
         -webkit-border-radius: 0px 0px 0px 0px;
         border: 1px solid #000000;
     }
-    .test{
+    .infosParty{
       display: grid;
       grid-template-columns: repeat(5,100px);
       justify-content:space-between;
@@ -265,12 +254,7 @@
       font-size:30px;
       color:black
     }
-    .logo img{
-      width:80px;
-      height:80px;
-      margin-right:10px;
-    }
-    .heeader{
+    .header{
       display:flex;
       flex-direction: row;
       justify-content: center;
@@ -288,7 +272,7 @@
       margin-left:30px;
     }
     .navbar{
-      margin-top:20px;
+      margin-top:10px;
       margin-bottom:10px;
     }
     .createParty{
@@ -296,5 +280,10 @@
     }
     .componentJoinParty{
       height:50px;
+    }
+    .header{
+      margin-left:450px;
+      margin-bottom:0px;
+      margin-top:0px;
     }
 </style>
