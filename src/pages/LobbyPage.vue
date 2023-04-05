@@ -92,7 +92,7 @@
     },
     data () {
       return {
-        limite: 30,
+        limite: 70,
         list: [],
         sortBy: 'board_status',
         sortDirection: 'asc'

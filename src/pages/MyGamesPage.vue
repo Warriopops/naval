@@ -5,8 +5,8 @@
     <navbar class="navbar" />
     <div class="infos">
       <h2>lobby</h2>
-      <h2>Adversaire</h2>
-      <h2>Vous</h2>
+      <h2>Hôte</h2>
+      <h2>Guest</h2>
     </div>
     <div
       v-for="(list, index) in list"
@@ -14,7 +14,8 @@
     >
       <h2>{{ index }}</h2>
       <h2>{{list.host.login }}</h2>
-      <h2>{{ list.guest.login }}</h2>
+      <h2 v-if="list.guest === null">{{ list.guest }}</h2>
+      <h2 v-if="list.guest !== null">{{ list.guest.login }}</h2>
     </div>
     <div class="button">
       <buttonComponent title="RETOUR" @click="back"></buttonComponent>
@@ -38,7 +39,8 @@
     },
     computed: {
       ...mapState({
-        myGames: 'myGames'
+        myGames: 'myGames',
+        myGamesLoaded: 'myGamesLoaded'
       })
     },
     mounted () {

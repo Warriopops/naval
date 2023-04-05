@@ -9,7 +9,9 @@ export default createStore({
     partyLoaded: false,
     gamesLobby: [],
     gamesInfos: null,
-    gamesInfosLoaded: false
+    gamesInfosLoaded: false,
+    registerFail: null,
+    myGamesLoaded: false
   },
   getters: {
   },
@@ -47,6 +49,7 @@ export default createStore({
     },
     myGame(state, reponse) {
       state.myGames = reponse
+      state.myGamesLoaded = true
 
     }
   },
@@ -86,13 +89,21 @@ export default createStore({
       }).catch((error) => { console.log(error) })
       return promesse
     },
-    CreateParty({ state }) {
+    createParty({ state }, board) {
       const token = state.identifiants.access_token.access_token
-      axios.get('https://naval.laize.pro/board', {
-        headers: { Authorization: `bearer ${token}` }
-      }).then((reponse) => {
-        console.log(reponse)
-      })
+      console.log(state)
+      console.log('store', board)
+      axios.post('https://naval.laize.pro/board/', {
+        "ships": [2, 3, 3, 4, 4]
+      },
+        {
+          headers: { Authorization: `bearer ${token}` }
+
+        }).then((reponse) => {
+          console.log("reussi", reponse)
+        }).catch((error) => {
+          console.log(error)
+        })
     },
     join({ state }, list) {
       const token = state.identifiants.access_token.access_token
@@ -106,16 +117,18 @@ export default createStore({
       });
       return promesse;
     },
-    register(context, identifiants) {
-      console.log(context)
-      axios.post('https://naval.laize.pro/user/signup', {
+    register({ state }, identifiants) {
+      const promesse = axios.post('https://naval.laize.pro/user/signup', {
         login: identifiants.pseudo,
         password: identifiants.password
       }).then((response) => {
-        console.log('inscription réussis', response)
+        console.log(response)
+        state.registerFail = true
       }).catch((error) => {
-        console.log('erreur d inscription', error)
+        console.log(error)
+        state.registerFail = false
       })
+      return promesse
     },
     loadingParty(context) {
       axios
@@ -139,10 +152,6 @@ export default createStore({
           commit('gameInformationFailed', reponse.data)
         })
     },
-    createParty(state, board) {
-      console.log(state)
-      console.log('store', board)
-    }
   },
   modules: {
 
@@ -151,16 +160,16 @@ export default createStore({
 
 //FAIS
 // FAIRE DU MENAGE DANS LE STORE et partout (props, nom de variable, event qui s'appelle event, etc.)
+// REFAIRE UNE PAGE D'INSCRIPTION ( FINIR AVEC PROMESSE )
 
 // A FAIRE
 
-// REFAIRE UNE PAGE D'INSCRIPTION ( FINIR AVEC PROMESSE )
 
 // Plateau => Changer le for recursif par un seul v-for et compléter les deux methods
 // Plateau => au clic sur une case, afficher un console.log de la position cliqué (cliqué à x/y)
 // Creation de partie => Mettre les meme bateaux par défaut que sur le swagger ( API )
 
-// CREATIONS DE BATEAUX AVEC /POST BOARD ( SHIPS = LISTE DE BATEAUX)
+// CREATIONS DE PARTIE AVEC /POST BOARD ( SHIPS = LISTE DE BATEAUX)
 
 // PLACEMENT DE BATEAUX
 

@@ -11,8 +11,9 @@
             <input id="pseudo" v-model="pseudo" type="text" placeholder="Pseudo">
             <input id="Password" v-model="password" type="text" placeholder="Mot de passe" class="password">
         </div>
-        <h3 v-if="registerOn">Inscription Accomplis</h3>
-        <h4 v-if="registerFail">Inscription Echouer : Rentrer un pseudo ou mot de passe</h4>
+        <h3 v-if="registerFail">Inscription Accomplis</h3>
+        <h4 v-if="registerFail == false">Inscription Echouer : Pseudo déjà utiliser</h4>
+        <h4 v-if="registerEmpty == true">Inscription Echouer : Merci de rentrer un pseudo ou un mot de passe</h4>
       <buttonComponent class="registerButton" title="S'inscrire" @click="register"></buttonComponent>
     </div>
     <div class="button">
@@ -23,6 +24,7 @@
 <script>
   import navbar from '@/components/NavbarComponent.vue'
   import buttonComponent from '@/components/ButtonComponent.vue'
+  import { mapState } from 'vuex'
 
   export default{
     data:function() {
@@ -30,8 +32,7 @@
         pseudo: '',
         password: '',
         idendifiants: {},
-        registerOn: false,
-        registerFail: false,
+        registerEmpty: false,
       };
     },
     components:{
@@ -40,13 +41,17 @@
     },
     methods:{
       register () {
-        if (this.pseudo && this.password !== null){
+        this.$store.state.registerFail = null
+        this.registerEmpty = null
+        if (this.pseudo !== '' && this.password !== ''){
           this.idendifiants = {pseudo: this.pseudo, password: this.password}
-          const register = this.$store.dispatch('register', this.idendifiants).then(() =>{
-            this.registerOn = true
+          const promesse = this.$store.dispatch('register', this.idendifiants).then(() =>{
+            console.log(promesse)
           }).catch(() =>{
-            this.registerOn = false
           })
+        }
+        if (this.pseudo === '' || this.password === ''){
+          this.registerEmpty = true
         }
         this.pseudo = '',
         this.password = ''
@@ -54,7 +59,12 @@
       back () {
         this.$router.push('/')
       }
-    }
+    },
+    computed: {
+      ...mapState({
+        registerFail: 'registerFail'
+      }),
+    },
   }
 </script>
 <style scoped>
